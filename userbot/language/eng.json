@@ -15,10 +15,10 @@
     "CREATED_TIME": "Created Time",
     "NAME_INFO": "Updates the first name and last name.",
     "NAME_NONE": "**Please enter the first name and last name.**",
-    "SUC_NAME": "**Successfully updated the profile name as:\n`{}`**",
-    "BIO_INFO": "Updates bio.",
+    "SUC_NAME": "**Successfully updated the profile name as: `{}`**",
+    "BIO_INFO": "Updates profile bio.",
     "BIO_NONE": "**Please enter or reply to any text message.**",
-    "SUC_BIO": "**Successfully updated the bio as:**\n`{}`",
+    "SUC_BIO": "**Successfully updated the bio as:** `{}`",
     "PP_INFO": "Updates profile picture with replied image.",
     "PP_NONE": "**Please reply to any image.**",
     "PP_SMALL": "**Given image is too small to set profile picture.**",
@@ -40,7 +40,6 @@
   "ai": {
     "CHATGPT_INFO": "ChatGPT is a Large Language Model (LLM) by OpenAI.",
     "GEMINI_INFO": "Gemini is a Large Language Model (LLM) by Google.",
-    "MISTRAL_INFO": "Mistral is a Large Language Model (LLM) by Mistral AI.",
     "LLAMA_INFO": "LLaMa is a Large Language Model (LLM) by Meta.",
     "AI_NONE": "**Please enter your message along with the command.**",
     "THINK": "`Thinking...`"
