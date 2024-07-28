@@ -1,1 +1,58 @@
-
+{
+  "menu": {
+    "COMMAND": "Command",
+    "INFO": "Info",
+    "USAGE": "Usage",
+    "EXAMPLE": "Example",
+    "MENU_FAILED": "I am unable to load menu."
+  },
+  "profile": {
+    "RESERVED_INFO": "List of public channels where I am admin.",
+    "NO_RESERVED": "**You are not an owner or admin of any public channels.**",
+    "TITLE": "Title",
+    "USERNAME": "Username",
+    "CREATED_DATE": "Created Date",
+    "CREATED_TIME": "Created Time",
+    "NAME_INFO": "Updates the first name and last name.",
+    "NAME_NONE": "**Please enter the first name and last name.**",
+    "SUC_NAME": "**Successfully updated the profile name as:\n`{}`**",
+    "BIO_INFO": "Updates bio.",
+    "BIO_NONE": "**Please enter or reply to any text message.**",
+    "SUC_BIO": "**Successfully updated the bio as:**\n`{}`",
+    "PP_INFO": "Updates profile picture with replied image.",
+    "PP_NONE": "**Please reply to any image.**",
+    "PP_SMALL": "**Given image is too small to set profile picture.**",
+    "PP_FAILED": "**Image processing failed.**"
+  },
+  "sys": {
+    "ALIVE_INFO": "Checks whether the bot is alive or not.",
+    "ALIVE": "**Neo is alive!**",
+    "PING_INFO": "Measures the ping.",
+    "SYS_INFO": "Gives you detailed system statistics.",
+    "SYS_LOADING": "`System statistics...`",
+    "SYS_FAILED": "**The package 'neofetch' is missing.**",
+    "SPEEDTEST_INFO": "Gives you downloading and uploading speedtest result.",
+    "SPEEDTEST_LOADING": "`Speed testing...`",
+    "DOWN_SPEED": "__Download speed:__",
+    "UPLOAD_SPEED": "__Upload speed:__",
+    "AVG_SPEED": "__Average speed:__"
+  },
+  "ai": {
+    "CHATGPT_INFO": "ChatGPT is a Large Language Model (LLM) by OpenAI.",
+    "GEMINI_INFO": "Gemini is a Large Language Model (LLM) by Google.",
+    "MISTRAL_INFO": "Mistral is a Large Language Model (LLM) by Mistral AI.",
+    "LLAMA_INFO": "LLaMa is a Large Language Model (LLM) by Meta.",
+    "AI_NONE": "**Please enter your message along with the command.**",
+    "THINK": "`Thinking...`"
+  },
+  "web": {
+    "DEF_INFO": "Search for the word in dictionary.",
+    "DEF_NONE": "**Please enter a word to search.**",
+    "SEARCH": "`Searching...`",
+    "WORD": "__Word__",
+    "PHONETICS": "__Phonetics__",
+    "POP": "__Parts of speech__",
+    "DEF": "__Definition__",
+    "DEF_FAILED": "**I cannot find this word in dictionary!**"
+  }
+}
