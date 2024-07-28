@@ -13,7 +13,7 @@ LANG = {
   pattern='^update ?(.*)',
   info=LANG['UPDATE_INFO']
 )
-async def update(event):
+async def _update(event):
   text = event.pattern_match.group(1) or None
   if text == None or text != 'now':
     return await event.edit(
