@@ -18,7 +18,7 @@ if not SPOTIFY_CLIENT_ID == False and not SPOTIFY_CLIENT_SECRET == False:
     )
   )
 else:
-  spotify = Spotify(auth=SPOTIFY_ACCESS_TOKEN)
+  spotify = False
 
 def spotify_search(track):
   def extract_artist_info(artist):
@@ -32,6 +32,8 @@ def spotify_search(track):
       'height': image.get('height', 'N/A'),
       'width': image.get('width', 'N/A')
     }
+  if spotify == False:
+    return spotify
   result = spotify.search(track)
   results_info = []
 
@@ -68,15 +70,6 @@ def spotify_search(track):
     results_info.append(album_info)
 
   return results_info
-
-def get_last_played():
-  results = spotify.current_user_recently_played(limit=1)
-  if results['items']:
-    last = results['items'][0]['track']
-    print(last)
-    return spotify_search(last['name'])
-  else:
-    return False
 
 async def update():
   try:
