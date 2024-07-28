@@ -1,4 +1,5 @@
 asyncio
+dotenv
 googletrans
 importlib
 Pillow
