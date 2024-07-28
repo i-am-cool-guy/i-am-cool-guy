@@ -19,10 +19,11 @@ async def _update(event):
     return await event.edit(
       await update(True)
     )
-  status = await update()
-  await event.edit(LANG['UPDATING'])
-  if status == 'up-to-date':
-    return await event.edit(LANG['UP-TO-DATE'])
-  else if status == 'failed':
+  try: 
+    status = await update(False)
+  except ValueError:
     return await event.edit(LANG['UPDATE_FAILED'])
+  await event.edit(LANG['UPDATING'])
+  if status == False:
+    return await event.edit(LANG['UP-TO-DATE'])
   return await event.reply(LANG['UPDATED'])
