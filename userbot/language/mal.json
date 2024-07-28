@@ -22,7 +22,6 @@
   "ai": {
     "CHATGPT_INFO": "OpenAI-യുടെ ഒരു വലിയ ഭാഷാ മോഡലാണ് (LLM) ChatGPT.",
     "GEMINI_INFO": "Gemini-ൻ്റെ ഒരു വലിയ ഭാഷാ മാതൃകയാണ് (LLM) ജെമിനി.",
-    "MISTRAL_INFO": "Mistral AI-യുടെ ഒരു വലിയ ഭാഷാ മാതൃകയാണ് (LLM).",
     "LLAMA_INFO": "LLAMa ഒരു വലിയ ഭാഷാ മോഡലാണ് (LLM) Meta.",
     "AI_NONE": "**കമാൻഡ് സഹിതം നിങ്ങളുടെ സന്ദേശം നൽകുക.**",
     "THINK": "`ചിന്തിക്കുന്നു...`"
