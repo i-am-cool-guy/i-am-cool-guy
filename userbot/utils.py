@@ -100,7 +100,7 @@ async def update(changelog):
       repo.git.reset("--hard", "FETCH_HEAD")
       ValueError(GitCommandError)
 
-    asyncio.run(update_requirements())
+    await update_requirements()
     return True
 
 def rollback(version):
