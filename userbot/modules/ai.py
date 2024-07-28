@@ -31,20 +31,6 @@ async def gemini(event):
   return await event.edit('**' + response + '**')
 
 @Neo.command(
-    pattern='^mistral ?(.*)',
-    info=LANG['MISTRAL_INFO'],
-    usage='.mistral <message>',
-    example='.mistral Hello Mistral!'
-)
-async def gemini(event):
-  text = event.pattern_match.group(1) or False
-  if text == False:
-    return await event.edit(LANG['AI_NONE'])
-  await event.edit(LANG['THINK'])
-  response = ai('mixtral', text)
-  return await event.edit('**' + response + '**')
-
-@Neo.command(
     pattern='^llama ?(.*)',
     info=LANG['LLAMA_INFO'],
     usage='.llama <message>',
