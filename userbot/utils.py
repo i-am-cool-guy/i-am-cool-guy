@@ -121,12 +121,10 @@ def rollback(version):
 
     try:
       repo.git.reset("--hard", commit_hash)
-    except GitCommandError as error:
-      return 'failed'
+    except GitCommandError:
+      ValueError(GitCommandError)
 
-    asyncio.run(update_requirements())
-    print('Successfully rolled back to v' + version)
-    return True
+    return await update_requirements()
 
 async def update_requirements():
     try:
@@ -138,9 +136,9 @@ async def update_requirements():
         if process.returncode != 0:
             raise Exception(f"Failed to install requirements. Error: {stderr.decode()}")
     except Exception as e:
-        return f"Failed to update requirements: {e}"
+        print(f"Failed to update requirements: {e}")
     else:
-        return "Requirements updated successfully."
+        return True
 
 async def request(method, url, result):
   async with ClientSession() as session:
