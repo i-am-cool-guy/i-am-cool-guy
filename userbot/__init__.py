@@ -2,8 +2,11 @@ from telethon import events
 from telethon.sync import TelegramClient, custom
 from telethon.sessions import StringSession
 from telethon.tl.functions.channels import JoinChannelRequest
+from dotenv import load_dotenv
 from datetime import datetime
 import traceback, os, re
+
+load_dotenv('config.env')
 
 VERSION = 'v1.0.0'
 API_ID = os.getenv('API_ID', False)
