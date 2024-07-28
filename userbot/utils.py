@@ -71,7 +71,7 @@ def spotify_search(track):
 
   return results_info
 
-async def update():
+async def update(changelog):
   try:
     repo = Repo()
   except (NoSuchPathError, GitCommandError, InvalidGitRepositoryError) as error:
@@ -84,13 +84,13 @@ async def update():
   upstream_remote = repo.remote('upstream')
   upstream_remote.fetch('master')
 
-  if changelog:
-    changelog_str = ''
-    for commit in repo.iter_commits(f'HEAD..upstream/master'):
-      changelog_str += f"• [{commit.committed_datetime.strftime('%dd-%mm-%yy')}]: {commit.summary} <{commit.author}>\n"
-
-    if not changelog_str:
-      return 'up-to-date'
+  changelog_str = ''
+  for commit in repo.iter_commits(f'HEAD..upstream/master'):
+    changelog_str += f"• [{commit.committed_datetime.strftime('%dd-%mm-%yy')}]: {commit.summary} <{commit.author}>\n"
+  if changelog == True:
+    return changelog_str
+  if not changelog_str:
+    return 'up-to-date'
   else:
     try:
       upstream_remote.pull('master')
