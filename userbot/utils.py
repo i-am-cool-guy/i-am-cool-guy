@@ -78,25 +78,27 @@ async def update(changelog):
     ValueError(error)
 
   active_branch = repo.active_branch
-  if active_branch.name != 'master':
-    return 'invalid_branch'
-
-  upstream_remote = repo.remote('upstream')
-  upstream_remote.fetch('master')
+  if active_branch.name != 'main':
+    ValueError('Updation Failed.')
+  try:
+    upstream_remote = repo.remote('upstream')
+  except ValueError:
+    upstream_remote = repo.create_remote('upstream', 'https://github.com/i-am-cool-guy/i-am-cool-guy.git')
+  upstream_remote.fetch('main')
 
   changelog_str = ''
-  for commit in repo.iter_commits(f'HEAD..upstream/master'):
-    changelog_str += f"• [{commit.committed_datetime.strftime('%dd-%mm-%yy')}]: {commit.summary} <{commit.author}>\n"
+  for commit in repo.iter_commits(f'HEAD..upstream/main'):
+    changelog_str += f"• [{commit.committed_datetime.strftime('%d-%m-%y')}]: {commit.summary} <{commit.author}>\n"
   if changelog == True:
     return changelog_str
   if not changelog_str:
-    return 'up-to-date'
+    return False
   else:
     try:
-      upstream_remote.pull('master')
+      upstream_remote.pull('main')
     except GitCommandError:
       repo.git.reset("--hard", "FETCH_HEAD")
-      return 'failed'
+      ValueError(GitCommandError)
 
     asyncio.run(update_requirements())
     return True
