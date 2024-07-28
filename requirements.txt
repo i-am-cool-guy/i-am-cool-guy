@@ -1,0 +1,9 @@
+asyncio
+googletrans
+importlib
+Pillow
+requests>=2.18.4
+rsnchat
+speedtest
+spotipy
+telethon
