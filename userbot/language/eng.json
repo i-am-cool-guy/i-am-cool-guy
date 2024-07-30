@@ -6,23 +6,28 @@
     "EXAMPLE": "Example",
     "MENU_FAILED": "I am unable to load menu."
   },
-  "profile": {
-    "RESERVED_INFO": "List of public channels where I am admin.",
-    "NO_RESERVED": "**You are not an owner or admin of any public channels.**",
-    "TITLE": "Title",
-    "USERNAME": "Username",
-    "CREATED_DATE": "Created Date",
-    "CREATED_TIME": "Created Time",
-    "NAME_INFO": "Updates the first name and last name.",
-    "NAME_NONE": "**Please enter the first name and last name.**",
-    "SUC_NAME": "**Successfully updated the profile name as: `{}`**",
-    "BIO_INFO": "Updates profile bio.",
-    "BIO_NONE": "**Please enter or reply to any text message.**",
-    "SUC_BIO": "**Successfully updated the bio as:** `{}`",
-    "PP_INFO": "Updates profile picture with replied image.",
-    "PP_NONE": "**Please reply to any image.**",
-    "PP_SMALL": "**Given image is too small to set profile picture.**",
-    "PP_FAILED": "**Image processing failed.**"
+  "ai": {
+    "CHATGPT_INFO": "ChatGPT is a Large Language Model (LLM) by OpenAI.",
+    "GEMINI_INFO": "Gemini is a Large Language Model (LLM) by Google.",
+    "LLAMA_INFO": "LLaMa is a Large Language Model (LLM) by Meta.",
+    "AI_NONE": "**Please enter your message along with the command.**",
+    "THINK": "`Thinking...`"
+  },
+  "git": {
+    "UPDATE_INFO": "Updates Neo to latest version.",
+    "ROLLBACK_INFO": "Rollbacks Neo to previous version.",
+    "ROLLBACK_NONE": "**Please specify a version from the following to rollback!**\n**- 1.0**",
+    "UPDATING": "`Updating...`",
+    "ROLLING_BACK": "`Rolling back to v{}...`",
+    "CHANGELOG": "**A new update is available for Neo, Here is the changelog:**\n{}\n\n__Please type '{}update now' to update Neo to latest version.",
+    "UP-TO-DATE": "**Neo is up-to-date.**",
+    "NO_VERSION": "**No such version to rollback.**",
+    "CURRENT_VER": "**Neo is already up-to-date on v{}!**",
+    "VERSION_DEP": "**Rolling back to v{} is no longer possible.**",
+    "UPDATE_FAILED": "**Failed to update Neo to latest version!**",
+    "ROLLBACK_FAILED": "**Failed to rollback Neo to specified version!**",
+    "UPDATED": "**Neo is updated.**",
+    "ROLLED_BACK": "**Neo rolled back to v{}.**"
   },
   "sys": {
     "ALIVE_INFO": "Checks whether the bot is alive or not.",
@@ -41,12 +46,23 @@
     "UPLOAD_SPEED": "__Upload speed:__",
     "AVG_SPEED": "__Average speed:__"
   },
-  "ai": {
-    "CHATGPT_INFO": "ChatGPT is a Large Language Model (LLM) by OpenAI.",
-    "GEMINI_INFO": "Gemini is a Large Language Model (LLM) by Google.",
-    "LLAMA_INFO": "LLaMa is a Large Language Model (LLM) by Meta.",
-    "AI_NONE": "**Please enter your message along with the command.**",
-    "THINK": "`Thinking...`"
+  "profile": {
+    "RESERVED_INFO": "List of public channels where I am admin.",
+    "NO_RESERVED": "**You are not an owner or admin of any public channels.**",
+    "TITLE": "Title",
+    "USERNAME": "Username",
+    "CREATED_DATE": "Created Date",
+    "CREATED_TIME": "Created Time",
+    "NAME_INFO": "Updates the first name and last name.",
+    "NAME_NONE": "**Please enter the first name and last name.**",
+    "SUC_NAME": "**Successfully updated the profile name as: `{}`**",
+    "BIO_INFO": "Updates profile bio.",
+    "BIO_NONE": "**Please enter or reply to any text message.**",
+    "SUC_BIO": "**Successfully updated the bio as:** `{}`",
+    "PP_INFO": "Updates profile picture with replied image.",
+    "PP_NONE": "**Please reply to any image.**",
+    "PP_SMALL": "**Given image is too small to set profile picture.**",
+    "PP_FAILED": "**Image processing failed.**"
   },
   "web": {
     "DEF_INFO": "Search for the word in dictionary.",
