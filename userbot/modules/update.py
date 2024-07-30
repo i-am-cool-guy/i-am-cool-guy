@@ -41,14 +41,15 @@ async def _update(event):
   info=LANG['ROLLBACK_INFO']
 )
 async def _rollback(event):
-  text = event.pattern_match.group(1) or None
+  text = version = event.pattern_match.group(1) or None
   if text == None:
     return await event.edit(LANG['ROLLBACK_NONE'])
-  versions_list = []
   with open('../versions.json', 'r') as f:
     Json = f.read()
     Json = json.load(Json)
-
+    versions = Json.keys()
+  if not version in versions:
+    return await event.edit(LANG['NO_VERSION'])
   try: 
     status = await rollback(version)
   except ValueError:
