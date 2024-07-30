@@ -1,6 +1,6 @@
 from time import time_ns
 from telethon import events
-from userbot import Neo
+from userbot import Neo, VERSION, CHANNEL, SUPPORT
 from userbot.utils import lang, translate
 import speedtest
 import subprocess
@@ -11,7 +11,9 @@ LANG = lang('sys')
     info=LANG['ALIVE_INFO']
 )
 async def alive(event):
-  return await event.edit(LANG['ALIVE'])
+  return await event.edit(
+      LANG['ALIVE'].format(VERSION, CHANNEL, SUPPORT, "https://github.com/TOXIC-DEVIL/Neo")
+  )
 
 @Neo.command(
     pattern='^ping$',
