@@ -12,7 +12,7 @@ LANG = lang('sys')
 )
 async def alive(event):
   return await event.edit(
-      LANG['ALIVE'].format(VERSION, CHANNEL, SUPPORT, "https://github.com/TOXIC-DEVIL/Neo")
+      LANG['ALIVE'].format(LANG[random.choice(["ALIVE_MSG1", "ALIVE_MSG2", "ALIVE_MSG3", "ALIVE_MSG4"])], VERSION, CHANNEL, SUPPORT, "https://github.com/TOXIC-DEVIL/Neo")
   )
 
 @Neo.command(
