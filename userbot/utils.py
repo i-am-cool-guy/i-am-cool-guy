@@ -88,6 +88,7 @@ async def update(changelog):
 
   changelog_str = ''
   for commit in repo.iter_commits(f'HEAD..upstream/main'):
+    print(commit)
     changelog_str += f"• [{commit.committed_datetime.strftime('%d-%m-%y')}]: {commit.summary} <{commit.author}>\n"
   if changelog == True:
     return changelog_str
@@ -111,10 +112,8 @@ async def rollback(version):
 
   with open('versions.json', 'r') as f:
     versions = json.load(f)
-
     if version not in versions:
       return False
-  
     commit_hash = versions[version]
 
     try:
@@ -125,18 +124,18 @@ async def rollback(version):
     return await update_requirements()
 
 async def update_requirements():
-    try:
-        process = await asyncio.create_subprocess_exec(
-            sys.executable, "-m", "pip", "install", "-r", requirements_path,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE)
-        stdout, stderr = await process.communicate()
-        if process.returncode != 0:
-            raise Exception(f"Failed to install requirements. Error: {stderr.decode()}")
-    except Exception as e:
-        print(f"Failed to update requirements: {e}")
+  try:
+    process = await asyncio.create_subprocess_exec(
+     sys.executable, "-m", "pip", "install", "-r", requirements_path,
+       stdout=asyncio.subprocess.PIPE,
+       stderr=asyncio.subprocess.PIPE)
+    stdout, stderr = await process.communicate()
+    if process.returncode != 0:
+      raise Exception(stderr.decode())
     else:
-        return True
+      return True
+  except Exception as e:
+    print(e)
 
 async def request(method, url, result):
   async with ClientSession() as session:
