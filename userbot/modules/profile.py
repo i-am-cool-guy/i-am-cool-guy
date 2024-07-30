@@ -24,7 +24,9 @@ async def reserved(event):
 
 @Neo.command(
   pattern="^name ?(.*)",
-  info=LANG['NAME_INFO']
+  info=LANG['NAME_INFO'],
+  usage='.name <first_name last_name>',
+  example='.name Neo userbot'
 )
 async def name(event):
   text = first = event.pattern_match.group(1) or None
@@ -39,7 +41,9 @@ async def name(event):
 
 @Neo.command(
   pattern="^bio ?(.*)",
-  info=LANG['BIO_INFO']
+  info=LANG['BIO_INFO'],
+  usage='.bio <text>',
+  example='.bio Neo - telegram userbot'
 )
 async def bio(event):
   reply_message = await event.get_reply_message()
