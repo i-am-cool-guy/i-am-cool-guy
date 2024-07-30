@@ -26,7 +26,7 @@
   },
   "sys": {
     "ALIVE_INFO": "Checks whether the bot is alive or not.",
-    "ALIVE": "**Neo is alive!**",
+    "ALIVE": "**Neo is alive!**\n\n__Version:__ {}\n__Channel:__ @{}\n__Support Group:__ @{}\n\n[Telegram userbot - Neo]({})",
     "PING_INFO": "Measures the ping.",
     "SYS_INFO": "Gives you detailed system statistics.",
     "SYS_LOADING": "`System statistics...`",
