@@ -1,7 +1,6 @@
 from telethon import events
 from userbot import Neo
 from userbot.utils import update, rollback, lang
-import json
 
 LANG = {
   'UPDATE_INFO': 'Updates Neo to latest version.',
@@ -44,17 +43,12 @@ async def _rollback(event):
   text = version = event.pattern_match.group(1) or None
   if text == None:
     return await event.edit(LANG['ROLLBACK_NONE'])
-  with open('../versions.json', 'r') as f:
-    Json = f.read()
-    Json = json.load(Json)
-    versions = Json.keys()
-  if not version in versions:
-    return await event.edit(LANG['NO_VERSION'])
+
   try: 
     status = await rollback(version)
   except ValueError:
     return await event.edit(LANG['ROLLBACK_FAILED'])
   await event.edit(LANG['ROLLING_BACK'])
   if status == False:
-    return await event.edit(LANG['ROLLING_FAILED'])
+    return await event.edit(LANG['NO_VERSION'])
   return await event.reply(LANG['ROLLED_BACK'])
