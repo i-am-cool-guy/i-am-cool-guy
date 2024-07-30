@@ -8,7 +8,7 @@ from userbot import Neo
 from userbot.utils import lang
 
 LANG = lang("whois")
-
+""""
 @Neo.command(
   pattern="^whois ?(.*)",
   info="Get user details.",
@@ -16,8 +16,10 @@ LANG = lang("whois")
   example=".whois @telegram"
 )
 async def whois(event):
-  user = (
-    event.pattern_match.group(1) or 
+  text = event.pattern_match.group(1)
+  if text and isinstance(text, int):
+    user = int(event.pattern_match.group(1))
+  elif
     (str((await event.get_reply_message()).from_id) if event.reply_to_msg_id else None) or
     (str(event.message.entities[0].user_id) if event.message.entities and isinstance(event.message.entities[0], MessageEntityMentionName) else None) or
     (await Neo.get_me()).id
@@ -25,3 +27,4 @@ async def whois(event):
   user = int(user) if user.isnumeric() else user
   user_obj = await Neo.get_entity(user)
   userinfo = await Neo(GetFullUserRequest(user_obj.id))
+"""
