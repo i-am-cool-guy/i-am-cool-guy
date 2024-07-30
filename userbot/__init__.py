@@ -8,7 +8,10 @@ import traceback, os, re
 
 load_dotenv('config.env')
 
-VERSION = 'v1.0.0'
+VERSION = 'v1.0'
+CHANNEL = 'TheNeoTG'
+SUPPORT = 'NeoSupportChat'
+
 API_ID = os.getenv('API_ID', False)
 API_HASH = os.getenv('API_HASH', False)
 STRING_SESSION = os.getenv('STRING_SESSION', False)
