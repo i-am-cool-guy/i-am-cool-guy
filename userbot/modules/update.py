@@ -10,6 +10,7 @@ LANG = {
   'ROLLING_BACK': '`Rolling back to v{}`',
   'UP-TO-DATE': '**Neo is up-to-date.**',
   'NO_VERSION': '**No such version to rollback.**',
+  'VERSION_DEP': '**Rolling back to v{} is no longer possible.**',
   'UPDATE_FAILED': '**Failed to update Neo!**',
   'ROLLBACK_FAILED': '**Failed to rollback Neo!**',
   'UPDATED': '**Neo is updated.**',
