@@ -113,16 +113,14 @@ def rollback(version):
     versi = json.load(f)
 
     if version not in versi:
-      print('Neo wasn\'t available in this version.')
-      version = VERSION.replace('v', '')
-      print('Switching to latest version, Neo@' + VERSION)
-
+      return False
+  
     commit_hash = versions[version]
 
     try:
       repo.git.reset("--hard", commit_hash)
-    except GitCommandError:
-      ValueError(GitCommandError)
+    except GitCommandError as e:
+      ValueError(e)
 
     return asyncio.run(update_requirements())
 
