@@ -18,7 +18,7 @@ LANG = lang("whois")
 async def whois(event):
   text = event.pattern_match.group(1)
   reply = await event.get_reply_message()
-  user = ""
+  user = (await Neo.get_me()).id
   if text and isinstance(text, int):
     user = int(event.pattern_match.group(1))
   elif reply:
