@@ -103,16 +103,16 @@ async def update(changelog):
     await update_requirements()
     return True
 
-def rollback(version):
+async def rollback(version):
   try:
     repo = Repo()
   except (NoSuchPathError, GitCommandError, InvalidGitRepositoryError) as error:
     ValueError(error)
 
-  with open(version, 'r') as f:
-    versi = json.load(f)
+  with open('versions.json', 'r') as f:
+    versions = json.load(f)
 
-    if version not in versi:
+    if version not in versions:
       return False
   
     commit_hash = versions[version]
@@ -122,7 +122,7 @@ def rollback(version):
     except GitCommandError as e:
       ValueError(e)
 
-    return asyncio.run(update_requirements())
+    return await update_requirements()
 
 async def update_requirements():
     try:
