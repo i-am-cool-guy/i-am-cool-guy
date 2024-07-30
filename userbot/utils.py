@@ -124,7 +124,7 @@ def rollback(version):
     except GitCommandError:
       ValueError(GitCommandError)
 
-    return await update_requirements()
+    return asyncio.run(update_requirements())
 
 async def update_requirements():
     try:
