@@ -1,4 +1,5 @@
 asyncio
+gitpython
 googletrans
 importlib
 Pillow
