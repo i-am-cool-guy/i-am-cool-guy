@@ -2,11 +2,8 @@ from telethon import events
 from telethon.sync import TelegramClient, custom
 from telethon.sessions import StringSession
 from telethon.tl.functions.channels import JoinChannelRequest
-#from dotenv import load_dotenv
 from datetime import datetime
 import traceback, os, re
-
-#load_dotenv('config.env')
 
 VERSION = 'v1.0'
 CHANNEL = 'TheNeoTG'
@@ -66,8 +63,8 @@ def command(pattern=None, info=None, outgoing=True, usage=None, example=None, hi
         COMMANDS.append({
             'command': cmd,
             'info': info,
-            'usage': usage.replace('.', PREFIX[0]),
-            'example': example.replace('.', PREFIX[0]),
+            'usage': usage.replace('.', PREFIX[0]) or None,
+            'example': example.replace('.', PREFIX[0]) or None,
             'hide': hide,
         })
         return wrapper
