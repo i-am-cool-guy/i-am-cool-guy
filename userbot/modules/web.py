@@ -14,7 +14,8 @@ async def dict(event):
     return await event.edit(LANG['DEF_NONE'])
   await event.edit(LANG['SEARCH'])
   data = await request('get', 'https://api.dictionaryapi.dev/api/v2/entries/en/' + text, 'json')
-  if data:
+  print(data)
+  if data[0]:
     word = data[0]['word']
     phonetics = data[0]['phonetics'][0]['text'] if data[0]['phonetics'] else ''
     parts_of_speech = data[0]['meanings'][0]['partOfSpeech']
