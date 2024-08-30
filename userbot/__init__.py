@@ -63,8 +63,8 @@ def command(pattern=None, info=None, outgoing=True, usage=None, example=None, hi
         COMMANDS.append({
             'command': cmd,
             'info': info,
-            'usage': usage.replace('.', PREFIX[0]) or None,
-            'example': example.replace('.', PREFIX[0]) or None,
+            'usage': usage.replace('.', PREFIX[0]) if usage != None else None,
+            'example': example.replace('.', PREFIX[0]) if example != None else None,
             'hide': hide,
         })
         return wrapper
