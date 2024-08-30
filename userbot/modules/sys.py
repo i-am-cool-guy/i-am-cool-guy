@@ -2,6 +2,7 @@ from time import time_ns
 from telethon import events
 from userbot import Neo, VERSION, CHANNEL, SUPPORT
 from userbot.utils import lang, translate
+import random
 import speedtest
 import subprocess
 LANG = lang('sys')
