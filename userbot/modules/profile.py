@@ -19,7 +19,7 @@ async def reserved(event):
     return await event.edit(LANG['NO_RESERVED'])
   res = ''
   for chat in result.chats:
-    res += f"__{LANG['TITLE']}:__ **{channel.title}**\n__{LANG['USERNAME']}:__ **@{channel.username}**\n__{LANG['CREATED_DATE']}:__ **{channel.date.strftime('%d-%m-%y')}**\n__{LANG['CREATED_TIME']}:__ **{channel.date.strftime('%H:%M:%S')}**\n\n"
+    res += f"__{LANG['TITLE']}:__ **{chat.title}**\n__{LANG['USERNAME']}:__ **@{chat.username}**\n__{LANG['CREATED_DATE']}:__ **{chat.date.strftime('%d-%m-%y')}**\n__{LANG['CREATED_TIME']}:__ **{chat.date.strftime('%H:%M:%S')}**\n\n"
   return await event.edit(res)
 
 @Neo.command(
