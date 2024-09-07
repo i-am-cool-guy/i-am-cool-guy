@@ -22,7 +22,7 @@ async def menu(event):
           menu += f'__{info}__\n\n'
   else:
     for command in COMMANDS:
-      if text == command and command.get('hide', False) == True: 
+      if text == command and command.get('hide', False) == False: 
         cmd = command.get('command', False)
         info = command.get('info', False)
         usage = command.get('usage', False)
