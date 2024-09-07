@@ -1,5 +1,4 @@
 setuptools
-
 aiohttp
 asyncio
 gitpython
