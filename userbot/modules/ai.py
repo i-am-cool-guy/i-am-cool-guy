@@ -28,7 +28,7 @@ async def gemini(event):
     return await event.edit(LANG['AI_NONE'])
   await event.edit(LANG['THINK'])
   response = ai('gemini', text)
-  return await event.edit('**' + response + '**')
+  return await event.edit('**' + (response?.message || 'Fail') + '**')
 
 @Neo.command(
     pattern='^llama ?(.*)',
@@ -42,5 +42,5 @@ async def gemini(event):
     return await event.edit(LANG['AI_NONE'])
   await event.edit(LANG['THINK'])
   response = ai('llama', text)
-  return await event.edit('**' + response + '**')
+  return await event.edit('**' + (response?.message || 'Fail') + '**')
     
