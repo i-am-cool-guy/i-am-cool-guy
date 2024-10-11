@@ -10,7 +10,7 @@ LANG = lang('menu')
 )
 async def menu(event):
   menu = ''
-  text = event.pattern_match.group(0) or False
+  text = event.pattern_match.group(1) or False
   if text == False:
     for command in COMMANDS:
       hide = command.get('hide', False)
@@ -22,7 +22,7 @@ async def menu(event):
           menu += f'__{info}__\n\n'
   else:
     for command in COMMANDS:
-      if text == command and command.get('hide', False) == False: 
+      if text == command.get('command', False) and command.get('hide', False) == False:
         cmd = command.get('command', False)
         info = command.get('info', False)
         usage = command.get('usage', False)
