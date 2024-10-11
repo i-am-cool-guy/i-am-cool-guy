@@ -1,11 +1,9 @@
 from userbot import Neo
 from userbot.utils import lang
-from telethon.errors import ImageProcessFailedError, PhotoCropSizeSmallError
 from telethon.errors.rpcerrorlist import PhotoExtInvalidError, UsernameOccupiedError
 from telethon.tl.functions.account import UpdateProfileRequest, UpdateUsernameRequest
 from telethon.tl.functions.channels import GetAdminedPublicChannelsRequest
-from telethon.tl.functions.photos import DeletePhotosRequest, GetUserPhotosRequest, UploadProfilePhotoRequest
-from telethon.tl.types import InputPhoto, MessageMediaPhoto, User, Chat, Channel
+from telethon.tl.types import User, Chat, Channel
 import os
 LANG = lang('profile')
 
@@ -53,29 +51,3 @@ async def bio(event):
   bio = text.strip()
   await Neo(UpdateProfileRequest(about=bio))
   return await event.edit(LANG['SUC_BIO'].format(bio))
-
-@Neo.command(
-  pattern="^pp ?(.*)",
-  info=LANG['PP_INFO']
-)
-async def pp(event):
-  replied = await event.get_reply_message()
-  if replied.media:
-    if isinstance(replied.media, MessageMediaPhoto):
-      image = await Neo.download_media(message=replied.photo)
-    elif 'image' in replied.media.document.mime_type.split('/'):
-      image = await Neo.download_file(replied.media.document)
-    else:
-      return await event.edit(LANG['PP_NONE'])
-
-    try:
-      image_file = await Neo.upload_file(image)
-      await Neo(UploadProfilePhotoRequest(image_file))
-      os.remove(image)
-      return await event.edit(LANG['SUC_PP'])
-    except PhotoCropSizeSmallError:
-      return await event.edit(LANG['PP_SMALL'])
-    except ImageProcessFailedError:
-      return await event.edit(LANG['PP_FAILED'])
-    except PhotoExtInvalidError:
-      return await event.edit(LANG['PP_NONE'])
