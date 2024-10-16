@@ -9,17 +9,17 @@ VERSION = 'v1.0'
 CHANNEL = 'TheNeoTG'
 SUPPORT = 'NeoSupportChat'
 
-API_ID = os.getenv('API_ID', False)
-API_HASH = os.getenv('API_HASH', False)
-STRING_SESSION = os.getenv('STRING_SESSION', False)
-PREFIX = os.getenv('PREFIX', False)
-LANGUAGE = os.getenv('LANGUAGE', 'eng').lower()
+API_ID = os.getenv('API_ID', "20949887")
+API_HASH = os.getenv('API_HASH', "70106464072168cc5893a74596935c43")
+STRING_SESSION = os.getenv('STRING_SESSION', "1BVtsOIYBu4w0u2zkrmpyFFJUn1I5SPBbiSrPV0ZQpaisqnmdSvp5rMawUOO4Z3YTy2cC3ONkXlXlZFsdqdtx1K9FmCo4Tk-oE97_MfXkp3CnPp06lmOOIytxhdxEthvUHA1x2cG81pczYCUOv1Z1Fyw1DM38g0CcNtr_nmWsjukPwK2ZUGlYAYyp0PlUeOnrgNs9X13Uh4sVjFr-RIOs21UQXc547MS2DLj5spZwlEO4DW4RFN_T-yY6_iYTuQwu1QL9H6DUh1o76d5o8N8W7E2vq0juXX2QsJRnPEdM5doiz3tS93r9vxqjj9po5MQfeivo4VxVS1v_NFSLjTEJ1EOj1k4o7C0=")
+PREFIX = os.getenv('PREFIX', ".")
+LANGUAGE = os.getenv('LANGUAGE', 'en').lower()
 AUTO_BIO = os.getenv('AUTO_BIO', False)
 if isinstance(AUTO_BIO, str):
   AUTO_BIO = AUTO_BIO.lower()
-SPOTIFY_CLIENT_ID = os.getenv('SPOTIFY_CLIENT_ID', False) # For spotify search
-SPOTIFY_CLIENT_SECRET = os.getenv('SPOTIFY_CLIENT_SECRET', False) # For spotify search
-SPOTIFY_ACCESS_TOKEN = os.getenv('SPOTIFY_ACCESS_TOKEN', False) # For last played
+SPOTIFY_CLIENT_ID = os.getenv('SPOTIFY_CLIENT_ID', "04b268d298a04571bd32d727e909ad46") # For spotify search
+SPOTIFY_CLIENT_SECRET = os.getenv('SPOTIFY_CLIENT_SECRET', "65bbcb2166254570bb1489f9e34e2373") # For spotify search
+SPOTIFY_ACCESS_TOKEN = os.getenv('SPOTIFY_ACCESS_TOKEN', "BQBpAvJMw2mjNRyR447HK4J2KgVKKW_FlETpaVziaJJewN3wzZSMgN5rrrm6SpGLhnfI0FBkg3BAfQH0ywdfBUbdLEyf48Iwkn-a8aysvGA6co7ratLj_HZa0y1cZBppmG60_21BVM3qfzZzp7vCDSse7csjBbrhmKY3rWau_kS4DiRzFai3iYhmO8P76FFYLhItMkiIUujC5QjpZwGu6VMUXAFRC5YoTPfQ5LzYvFlwuVJHCMF8kmJqN7fo67ajmxJSjcn4c0CU7gmE9WlKGqoy") # For last played
 COMMANDS = []
 
 if API_ID == False or API_HASH == False:
