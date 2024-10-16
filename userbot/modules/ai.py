@@ -14,6 +14,7 @@ async def chatgpt(event):
     return await event.edit(LANG['AI_NONE'])
   await event.edit(LANG['THINK'])
   response = ai('gpt', text)
+  print(response)
   return await event.edit('**' + response + '**')
 
 @Neo.command(
@@ -28,7 +29,7 @@ async def gemini(event):
     return await event.edit(LANG['AI_NONE'])
   await event.edit(LANG['THINK'])
   response = ai('gemini', text)
-  return await event.edit('**' + (response?.message || 'Fail') + '**')
+  return await event.edit('**' + response + '**')
 
 @Neo.command(
     pattern='^llama ?(.*)',
@@ -42,5 +43,5 @@ async def gemini(event):
     return await event.edit(LANG['AI_NONE'])
   await event.edit(LANG['THINK'])
   response = ai('llama', text)
-  return await event.edit('**' + (response?.message || 'Fail') + '**')
+  return await event.edit('**' + response + '**')
     
