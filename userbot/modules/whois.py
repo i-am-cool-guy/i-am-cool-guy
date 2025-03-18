@@ -1,6 +1,7 @@
 from telethon import events
 from userbot import Neo, PREFIX
 from userbot.utils import lang
+import os
 LANG = lang('whois')
 
 @Neo.command(
@@ -17,4 +18,6 @@ async def whois(event):
       if isinstance(entity, events.message.MessageEntityMentionName):
         user = entity.user_id
   user_info = await Neo.get_entity(user)
+  pp = await Neo.download_profile_photo(user, file=os.path.join("../temp/", f"{user}.jpg"))
+  info = f"User ID: {user_info.id}\nUsername: {user_info.username}\nFirst Name: {user_info.first_name}\n{f'Last Name: {user_info.last_name}' if user_info.last_name else ''}{f'Phone: {user_info.phone}\n' if user_info.phone else ''}Is Bot: {'Yes' if user_info.bot else 'No'}"
   
