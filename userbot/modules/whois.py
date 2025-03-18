@@ -9,7 +9,7 @@ LANG = lang('whois')
   info='Get information of the user.'
 )
 async def whois(event):
-  user = (await client.get_me()).id
+  user = (await Neo.get_me()).id
   if event.is_reply:
     replied_msg = await event.get_reply_message()
     user = (await replied_msg.get_sender()).id
