@@ -11,4 +11,8 @@ async def whois(event):
   user = Neo.me.id
   if event.is_reply:
     replied_msg = await event.get_reply_message()
-    user = await replied_msg.get_sender()
+    user = (await replied_msg.get_sender()).id
+  if event.entities:
+    for entity in event.entities:
+      if isinstance(entity, events.message.MessageEntityMentionName):
+        user = (await Neo.get_entity(entity.user_id)).id
