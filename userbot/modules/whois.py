@@ -21,6 +21,6 @@ async def whois(event):
   pp = await Neo.download_profile_photo(user, file=os.path.join("../temp/", f"{user}.jpg"))
   info = f"User ID: {user_info.id}\nUsername: {user_info.username}\nFirst Name: {user_info.first_name}\n{f'Last Name: {user_info.last_name}' if user_info.last_name else ''}{f'Phone: {user_info.phone}\n' if user_info.phone else ''}Is Bot: {'Yes' if user_info.bot else 'No'}"
   if pp:
-    await client.send_file(chat_id, f"../temp/{user}.jpg", caption=info)
+    await Neo.send_file(chat_id, f"../temp/{user}.jpg", caption=info)
   else:
     await event.reply(info)
