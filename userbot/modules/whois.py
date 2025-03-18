@@ -15,4 +15,6 @@ async def whois(event):
   if event.entities:
     for entity in event.entities:
       if isinstance(entity, events.message.MessageEntityMentionName):
-        user = (await Neo.get_entity(entity.user_id)).id
+        user = entity.user_id
+  user_info = await Neo.get_entity(user)
+  
