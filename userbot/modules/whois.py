@@ -20,7 +20,7 @@ async def whois(event):
   user_info = await Neo.get_entity(user)
   print(user_info)
   pp = await Neo.download_profile_photo(user, file=os.path.join("../temp/", f"{user}.jpg"))
-  info = f"User ID: {user_info.id}\nUsername: {user_info.username}\nFirst Name: {user_info.first_name}\n{f'Last Name: {user_info.last_name}' if user_info.last_name else ''}Is Bot: {'Yes' if user_info.bot else 'No'}"
+  info = f"User ID: {user_info.id}\nUsername: {user_info.username}\nFirst Name: {user_info.first_name}{f'\nLast Name: {user_info.last_name}' if user_info.last_name else '\n'}Is Bot: {'Yes' if user_info.bot else 'No'}"
   if pp:
     await Neo.send_file(event.chat_id, f"../temp/{user}.jpg", caption=info)
   else:
