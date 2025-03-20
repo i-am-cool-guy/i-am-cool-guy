@@ -2,6 +2,7 @@ aiohttp
 asyncio
 gitpython
 googletrans
+google-images-download
 Pillow
 requests>=2.18.4
 rsnchat
