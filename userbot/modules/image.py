@@ -1,5 +1,8 @@
 from telethon import events 
-from google_images_search import GoogleImagesSearch
+from google_images_downloader import GoogleImagesDownloader
+downloader.download("bear")  # Download 50 images in ./downloads folder
+
+downloader.download("cat", destination="C:\download\destination")  # Download at specified destination
 from userbot import Neo
 from userbot.utils import lang
 import os
@@ -13,14 +16,7 @@ async def image(event):
   text = event.pattern_match.group(1) or False
   if text == False:
     return await event.reply('**Please enter some keywords to search!**')
-  gis.search({
-    "q": text,
-    "num": 10,
-    "safe": "on",
-    "fileType": "jpg",
-    "imgType": "photo",
-    "searchType": "image"
-  })
-  for image in gis.results():
-    image.download('/path/to/download/folder')
-  
+  downloader = GoogleImagesDownloader(browser="chrome", show=False, debug=False,
+                                    quiet=False, disable_safeui=False)
+  downloader.download(text, limit=10, destination="../temp/", file_format="jpg")
+  downloader.close()
