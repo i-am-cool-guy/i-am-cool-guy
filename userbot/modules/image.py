@@ -1,5 +1,5 @@
 from telethon import events 
-from google_images_download import google_images_download
+from google_images_search import GoogleImagesSearch
 from userbot import Neo
 from userbot.utils import lang
 import os
@@ -10,9 +10,17 @@ LANG = lang('image')
   info='Download google images for your query.'
 )
 async def image(event):
-  if event.pattern_match.group(1):
-    response = google_images_download.googleimagesdownload()
-    images = response.download({ "keywords": f"{event.pattern_match.group(1)} -sa", "limit": 10 }) 
-    print(images)
-  else:
-    await event.reply("Cannot find images for your query!")
+  text = event.pattern_match.group(1) or False
+  if text == False:
+    return await event.reply('**Please enter some keywords to search!**')
+  gis.search({
+    "q": text,
+    "num": 10,
+    "safe": "on",
+    "fileType": "jpg",
+    "imgType": "photo",
+    "searchType": "image"
+  })
+  for image in gis.results():
+    image.download('/path/to/download/folder')
+  
