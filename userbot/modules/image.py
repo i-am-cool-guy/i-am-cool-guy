@@ -14,7 +14,7 @@ async def image(event):
     text = event.pattern_match.group(1) or False
     if not text:
         return await event.reply('**Please enter some keywords to search!**')
-    await event.reply("```Downloading ...```")
+    await event.reply("`Downloading ...`")
     downloader = simple_image_download()
     download_path = "../temp/"
     downloader.download(text, limit=10)
