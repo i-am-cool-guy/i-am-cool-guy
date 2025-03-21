@@ -12,7 +12,7 @@ LANG = lang('image')
 async def image(event):
   if event.pattern_match.group(1):
     response = google_images_download.googleimagesdownload()
-    images = response.download({ "keywords": f"{event.pattern_match.group(0)} -sa", "limit": 10 }) 
+    images = response.download({ "keywords": f"{event.pattern_match.group(1)} -sa", "limit": 10 }) 
     print(images)
   else:
     await event.reply("Cannot find images for your query!")
