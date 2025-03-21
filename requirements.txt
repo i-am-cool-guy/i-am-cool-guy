@@ -2,10 +2,10 @@ aiohttp
 asyncio
 gitpython
 googletrans
-google_images_downloader
 Pillow
 requests>=2.18.4
 rsnchat
+simple_image_download
 speedtest
 spotipy
 telethon
