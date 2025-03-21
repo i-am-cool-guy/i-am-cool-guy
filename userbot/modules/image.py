@@ -14,7 +14,7 @@ async def image(event):
     text = event.pattern_match.group(1) or False
     if text == False:
         return await event.reply('**Please enter some keywords to search!**')
-    downloader = sid.Downloader()
+    downloader = sid.simple_image_download()
     download_path = "../temp/"
     downloader.download(text, limit=10, extensions={".jpg", ".png", ".jpeg"}, output_directory=download_path)
     images = []
