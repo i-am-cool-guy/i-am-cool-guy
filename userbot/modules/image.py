@@ -19,7 +19,7 @@ async def image(event):
     download_path = "../temp/"
     downloader.download(text, limit=10)
     imagedir = os.path.join("simple_images", text)
-    if not os.path.exists(image_folder):
+    if not os.path.exists(imagedir):
         return await event.reply('**No images found.**')
     images = []
     for image in os.listdir(imagedir):
