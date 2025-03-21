@@ -23,7 +23,7 @@ async def image(event):
         return await event.reply('**No images found.**')
     images = []
     for image in os.listdir(imagedir):
-      if image.endsWith("jpg") or image.endsWith("png") or image.endsWith("jpeg"):
+      if image.endswith("jpg") or image.endswith("png") or image.endswith("jpeg"):
         images.append(os.path.join(imagedir, image))
     if not images:
         return await event.reply('**No images found.**')
