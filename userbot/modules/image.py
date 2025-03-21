@@ -1,5 +1,5 @@
 from telethon import events 
-from simple_image_download import simple_image_download as sid
+from simple_image_download.simple_image_download import simple_image_download
 from userbot import Neo
 from userbot.utils import lang
 import os
@@ -12,15 +12,15 @@ LANG = lang('image')
 )
 async def image(event):
     text = event.pattern_match.group(1) or False
-    if text == False:
+    if not text:
         return await event.reply('**Please enter some keywords to search!**')
-    downloader = sid.simple_image_download()
+    downloader = simple_image_download()
     download_path = "../temp/"
-    downloader.download(text, limit=10, extensions={".jpg", ".png", ".jpeg"}, output_directory=download_path)
-    images = []
-    for image in os.listdir(download_path):
-        if image.endswith(("jpg", "png", "jpeg")):
-            images.append(os.path.join(download_path, image))
+    downloader.download(text, limit=10)
+    image_folder = os.path.join("simple_images", text)
+    if not os.path.exists(image_folder):
+        return await event.reply('**No images found.**')
+    images = [os.path.join(image_folder, img) for img in os.listdir(image_folder) if img.endswith(("jpg", "png", "jpeg"))]
     if not images:
         return await event.reply('**No images found.**')
     for image_path in images:
