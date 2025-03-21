@@ -14,13 +14,17 @@ async def image(event):
     text = event.pattern_match.group(1) or False
     if not text:
         return await event.reply('**Please enter some keywords to search!**')
+    await event.reply("```Downloading ...```")
     downloader = simple_image_download()
     download_path = "../temp/"
     downloader.download(text, limit=10)
-    image_folder = os.path.join("simple_images", text)
+    imagedir = os.path.join("simple_images", text)
     if not os.path.exists(image_folder):
         return await event.reply('**No images found.**')
-    images = [os.path.join(image_folder, img) for img in os.listdir(image_folder) if img.endswith(("jpg", "png", "jpeg"))]
+    images = []
+    for image in os.listdir(imagedir):
+      if image.endsWith("jpg") or image.endsWith("png") or image.endsWith("jpeg"):
+        images.append(os.path.join(imagedir, image)
     if not images:
         return await event.reply('**No images found.**')
     for image_path in images:
