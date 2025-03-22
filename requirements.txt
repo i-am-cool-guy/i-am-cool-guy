@@ -2,10 +2,10 @@ aiohttp
 asyncio
 gitpython
 googletrans
+lyricsgenius
 Pillow
 requests>=2.18.4
 rsnchat
-simple_image_download
 speedtest
 spotipy
 telethon
