@@ -137,13 +137,12 @@ async def update_requirements():
   except Exception as e:
     print(e)
 
-async def request(method, url, result):
+async def request(method, url):
   async with ClientSession() as session:
     async with getattr(session, method)(url, headers={
       'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
     }) as response:
-      res = await getattr(response, result)()
-      return res
+      return response
 
 def translate(text, lang_to=LANGUAGE):
   translator = Translator()
