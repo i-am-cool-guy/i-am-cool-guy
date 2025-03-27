@@ -65,9 +65,9 @@
     "PP_FAILED": "**Image processing failed.**"
   },
   "weather": {
-    "WEATHER_INFO": "",
-    "WEATHER_NONE": "",
-    "WEATHER": ""
+    "WEATHER_INFO": "Get weather of a specific place.",
+    "WEATHER_NONE": "**Please enter any place name!**",
+    "WEATHER": "__City__ : **{}**\n__Weather__ : **{}**\n__Climate__ : **{}**\n__Temperature__ : **{}°C**\n__Pressure__ : **{} hPa**\n__Humidity Level__ : **{}%**\n__Visibility__ : **{} meters**\n__Wind Speed__ : **{} m/s**\n__Wind Direction__ : **{}°**\n__Cloudiness__ : **{}%**"
   },
   "web": {
     "DEF_INFO": "Search for the word in dictionary.",
