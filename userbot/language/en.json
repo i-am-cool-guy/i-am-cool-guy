@@ -64,6 +64,11 @@
     "PP_SMALL": "**Given image is too small to set profile picture.**",
     "PP_FAILED": "**Image processing failed.**"
   },
+  "weather": {
+    "WEATHER_INFO": "",
+    "WEATHER_NONE": "",
+    "WEATHER": ""
+  },
   "web": {
     "DEF_INFO": "Search for the word in dictionary.",
     "DEF_NONE": "**Please enter a word to search.**",
