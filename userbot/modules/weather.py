@@ -14,6 +14,7 @@ async def weather(event):
     if not text:
         return await event.reply('**Please enter any place name!**')
     data = await request('get', f"http://api.openweathermap.org/data/2.5/weather?q={text}&units=metric&appid=060a6bcfa19809c2cd4d97a212b19273&language=en", 'json')
+    print(data)
     await event.reply(f"""_City_ : **${data.name}*"
 __Weather__ : **${data.weather[0].main}**
 __Climate__ : **${data.weather[0].description}**
