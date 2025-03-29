@@ -14,4 +14,6 @@ async def weather(event):
     if not text:
         return await event.reply(LANG['WEATHER_NONE'])
     data = await request('get', f"http://api.openweathermap.org/data/2.5/weather?q={text}&units=metric&appid=060a6bcfa19809c2cd4d97a212b19273&language=en", 'json')
-    await event.reply(LANG['WEATHER'].format(data["name"], data["weather"][0]["main"], data["weather"][0]["description"], data["main"]["temp"], data["main"]["pressure"], data["main"]["humidity"], data["visibility"], data["wind"]["speed"], data["wind"]["deg"], data["clouds"]["all"])
+    await event.reply(
+        LANG['WEATHER'].format(data["name"], data["weather"][0]["main"], data["weather"][0]["description"], data["main"]["temp"], data["main"]["pressure"], data["main"]["humidity"], data["visibility"], data["wind"]["speed"], data["wind"]["deg"], data["clouds"]["all"])
+    )
