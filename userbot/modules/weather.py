@@ -3,6 +3,7 @@ from userbot import Neo
 from userbot.utils import lang, request
 from aiocache import Cache
 import asyncio
+import json
 import os
 
 LANG = lang('weather')
