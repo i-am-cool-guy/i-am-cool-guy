@@ -62,7 +62,7 @@ async def promote(event):
     if not user:
         return await event.edit(LANG['NO_USER'])
     rights = ChatAdminRights(post_messages=True, add_admins=False, pin_messages=True)
-    await event.client(EditAdminRequest(event.chat_id, user, rights, LANG['PROMOTED']))
+    await event.client(EditAdminRequest(event.chat_id, user, rights, "Admin"))
     await event.edit(LANG['PROMOTED'].format(user))
 
 @Neo.command(pattern='^demote ?(.*)', info=LANG['DEMOTE_INFO'], usage='.demote <user>', example='.demote @username')
@@ -71,7 +71,7 @@ async def demote(event):
     if not user:
         return await event.edit(LANG['NO_USER'])
     rights = ChatAdminRights(post_messages=False, add_admins=False, pin_messages=False)
-    await event.client(EditAdminRequest(event.chat_id, user, rights, LANG['DEMOTED']))
+    await event.client(EditAdminRequest(event.chat_id, user, rights, "Admin"))
     await event.edit(LANG['DEMOTED'].format(user))
 
 @Neo.command(pattern='^pin$', info=LANG['PIN_INFO'], usage='.pin', example='.pin')
