@@ -1,7 +1,6 @@
 from userbot import Neo
 from userbot.utils import lang
-from telethon.tl.functions.channels import EditBannedRequest, InviteToChannelRequest
-from telethon.tl.functions.messages import ExportChatInviteRequest
+from telethon.tl.functions.channels import EditBannedRequest, InviteToChannelRequest, ExportChatInviteRequest
 from telethon.tl.types import ChatBannedRights, ChatAdminRights
 
 LANG = lang('group')
@@ -25,7 +24,7 @@ async def unmute(event):
     user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
     if not user:
         return await event.edit(LANG['NO_USER'])
-    rights = ChatBannedRights(send_messages=False)
+    rights = ChatBannedRights(until_date=None, send_messages=False)
     await event.client(EditBannedRequest(event.chat_id, user, rights))
     await event.edit(LANG['UNMUTED'].format(user))
 
@@ -45,7 +44,7 @@ async def kick(event):
         return await event.edit(LANG['NO_USER'])
     rights = ChatBannedRights(until_date=None, view_messages=True)
     await event.client(EditBannedRequest(event.chat_id, user, rights))
-    await event.client(EditBannedRequest(event.chat_id, user, ChatBannedRights(view_messages=False)))
+    await event.client(EditBannedRequest(event.chat_id, user, ChatBannedRights(until_date=None, view_messages=False)))
     await event.edit(LANG['KICKED'].format(user))
 
 @Neo.command(pattern='^add ?(.*)', info=LANG['ADD_INFO'], usage='.add <user>', example='.add @username')
@@ -93,12 +92,12 @@ async def link(event):
 
 @Neo.command(pattern='^open$', info=LANG['OPEN_INFO'], usage='.open', example='.open')
 async def open_chat(event):
-    rights = ChatBannedRights(send_messages=False)
+    rights = ChatBannedRights(until_date=None, send_messages=False)
     await event.client(EditBannedRequest(event.chat_id, event.chat_id, rights))
     await event.edit(LANG['OPENED'])
 
 @Neo.command(pattern='^close$', info=LANG['CLOSE_INFO'], usage='.close', example='.close')
 async def close_chat(event):
-    rights = ChatBannedRights(send_messages=True)
+    rights = ChatBannedRights(until_date=None, send_messages=True)
     await event.client(EditBannedRequest(event.chat_id, event.chat_id, rights))
     await event.edit(LANG['CLOSED'])
