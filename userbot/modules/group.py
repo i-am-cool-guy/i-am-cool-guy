@@ -2,9 +2,7 @@ from userbot import Neo
 from userbot.utils import lang
 from telethon.tl.functions.channels import EditBannedRequest, EditAdminRequest, InviteToChannelRequest
 from telethon.tl.functions.messages import ExportChatInviteRequest
-from telethon.tl.types import ChatBannedRights, ChatAdminRights
-from telethon.tl.functions.channels import GetParticipantsRequest
-from telethon.tl.types import ChannelParticipantsAdmins
+from telethon.tl.types import ChatBannedRights, ChatAdminRights, ChannelParticipantsAdmins
 from datetime import timedelta
 import re
 
@@ -25,9 +23,9 @@ def parse_time(time_str):
   return None
 
 async def is_admin(event):
-  user = await event.client.get_me()
-  admins = await event.client(GetParticipantsRequest(event.chat_id, ChannelParticipantsAdmins()))
-  if user.id not in [admin.id for admin in admins.participants]:
+  user = await Neo.get_me()
+  admins = await Neo.get_participants(event.chat_id, filter=ChannelParticipantsAdmins)
+  if user.id not in [admin.id for admin in admins]:
     await event.edit(LANG['NOT_ADMIN'])
     return False
   return True
