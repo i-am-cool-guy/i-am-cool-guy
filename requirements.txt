@@ -9,4 +9,6 @@ requests>=2.18.4
 rsnchat
 speedtest
 spotipy
+SQLAlchemy
+aiosqlite
 telethon
