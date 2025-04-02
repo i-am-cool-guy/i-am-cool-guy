@@ -1,6 +1,7 @@
 from userbot import Neo
 from userbot.utils import lang
-from telethon.tl.functions.channels import EditBannedRequest, EditAdminRequest, InviteToChannelRequest, ExportChatInviteRequest
+from telethon.tl.functions.channels import EditBannedRequest, EditAdminRequest, InviteToChannelRequest
+from telethon.tl.functions.messages import ExportChatInviteRequest
 from telethon.tl.types import ChatBannedRights, ChatAdminRights
 from telethon.tl.functions.channels import GetParticipantsRequest
 from telethon.tl.types import ChannelParticipantsAdmins
