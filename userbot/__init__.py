@@ -14,7 +14,7 @@ API_HASH = os.getenv('API_HASH', "70106464072168cc5893a74596935c43")
 STRING_SESSION = os.getenv('STRING_SESSION', "1BVtsOIYBu4w0u2zkrmpyFFJUn1I5SPBbiSrPV0ZQpaisqnmdSvp5rMawUOO4Z3YTy2cC3ONkXlXlZFsdqdtx1K9FmCo4Tk-oE97_MfXkp3CnPp06lmOOIytxhdxEthvUHA1x2cG81pczYCUOv1Z1Fyw1DM38g0CcNtr_nmWsjukPwK2ZUGlYAYyp0PlUeOnrgNs9X13Uh4sVjFr-RIOs21UQXc547MS2DLj5spZwlEO4DW4RFN_T-yY6_iYTuQwu1QL9H6DUh1o76d5o8N8W7E2vq0juXX2QsJRnPEdM5doiz3tS93r9vxqjj9po5MQfeivo4VxVS1v_NFSLjTEJ1EOj1k4o7C0=")
 PREFIX = os.getenv('PREFIX', ".")
 LANGUAGE = os.getenv('LANGUAGE', 'en').lower()
-DATABASE_URI = os.getenv('DATABASE_URI', False)
+DATABASE_URI = os.getenv('DATABASE_URI', 'postgres://avnadmin:AVNS_62tGetoDe6blT3aKhq-@neotg-neotg-9e0e.c.aivencloud.com:14804/defaultdb')
 AUTO_BIO = os.getenv('AUTO_BIO', False)
 if isinstance(AUTO_BIO, str):
   AUTO_BIO = AUTO_BIO.lower()
