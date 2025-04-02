@@ -4,6 +4,7 @@ asyncio
 gitpython
 googletrans
 lyricsgenius
+psycopg2-binary
 Pillow
 requests>=2.18.4
 rsnchat
