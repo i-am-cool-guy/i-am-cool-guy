@@ -8,4 +8,9 @@ engine = create_engine(DATABASE_URL)
 Base = declarative_base()
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-db = SessionLocal()
+try:
+  db = SessionLocal()
+  print("✅ Connected to PostgreSQL successfully!")
+  db.close()
+except Exception as e:
+  print(f"❌ Failed to connect: {e}")
