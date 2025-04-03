@@ -3,36 +3,63 @@ from userbot.utils import lang
 from telethon.tl.functions.channels import EditBannedRequest, EditAdminRequest, InviteToChannelRequest
 from telethon.tl.functions.messages import ExportChatInviteRequest
 from telethon.tl.types import ChatBannedRights, ChatAdminRights
+from datetime import timedelta, datetime
 
 LANG = lang('group')
 
-@Neo.command(
-  pattern='^mute ?(.*)',
-  info=LANG['MUTE_INFO'],
-  usage='.mute <user>',
-  example='.mute @username'
-)
-async def mute(event):
-    user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
-    if not user:
-        return await event.edit(LANG['NO_USER'])
-    rights = ChatBannedRights(until_date=None, send_messages=True)
-    await event.client(EditBannedRequest(event.chat_id, user, rights))
-    await event.edit(LANG['MUTED'].format(user))
+def parse_duration(duration_str):
+  pattern = r'(?:(\d+)d)?\s*(?:(\d+)h)?\s*(?:(\d+)m)?\s*(?:(\d+)s)?'
+  match = re.match(pattern, duration_str)
+  if not match:
+    return None
+  days, hours, minutes, seconds = (int(match.group(i) or 0) for i in range(1, 5))
+  return timedelta(days=days, hours=hours, minutes=minutes, seconds=seconds).total_seconds()
 
 @Neo.command(
-  pattern='^unmute ?(.*)',
+    pattern='^mute ?(\S+)?(?:\s+(.+))?',
+    info=LANG['MUTE_INFO'],
+    usage='.mute <user> <time>',
+    example='.mute @username 10m'
+)
+async def mute(event):
+  user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
+  duration_str = event.pattern_match.group(2) or None
+  if not user:
+    return await event.edit(LANG['NO_USER'])
+  
+  until_date = None
+  if duration_str:
+    duration_seconds = parse_duration(duration_str)
+    if duration_seconds is None:
+      return await event.edit(LANG['INVALID_TIME'])
+    until_date = datetime.now().timestamp() + duration_seconds
+    
+  rights = ChatBannedRights(until_date=until_date, send_messages=True)
+  await event.client(EditBannedRequest(event.chat_id, user, rights))
+  await event.edit(LANG['MUTED'].format(user, duration_str if duration_str else 'forever'))
+
+@Neo.command(
+  pattern='^unmute ?(\S+)?(?:\s+(.+))?',
   info=LANG['UNMUTE_INFO'],
-  usage='.unmute <user>',
-  example='.unmute @username'
+  usage='.unmute <user> <time>',
+  example='.unmute @username 10m'
 )
 async def unmute(event):
-    user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
-    if not user:
-        return await event.edit(LANG['NO_USER'])
-    rights = ChatBannedRights(until_date=None, send_messages=False)
-    await event.client(EditBannedRequest(event.chat_id, user, rights))
-    await event.edit(LANG['UNMUTED'].format(user))
+  user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
+  duration_str = event.pattern_match.group(2) or None
+  if not user:
+    return await event.edit(LANG['NO_USER'])
+  
+  until_date = None
+  if duration_str:
+    duration_seconds = parse_duration(duration_str)
+    if duration_seconds is None:
+      return await event.edit(LANG['INVALID_TIME'])
+    until_date = datetime.now().timestamp() + duration_seconds
+    
+  rights = ChatBannedRights(until_date=until_date, send_messages=False)
+  await event.client(EditBannedRequest(event.chat_id, user, rights))
+  await event.edit(LANG['UNMUTED'].format(user))
 
 @Neo.command(
   pattern='^ban ?(.*)',
@@ -41,12 +68,21 @@ async def unmute(event):
   example='.ban @username'
 )
 async def ban(event):
-    user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
-    if not user:
-        return await event.edit(LANG['NO_USER'])
-    rights = ChatBannedRights(until_date=None, view_messages=True)
-    await event.client(EditBannedRequest(event.chat_id, user, rights))
-    await event.edit(LANG['BANNED'].format(user))
+  user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
+  duration_str = event.pattern_match.group(2) or None
+  if not user:
+    return await event.edit(LANG['NO_USER'])
+  
+  until_date = None
+  if duration_str:
+    duration_seconds = parse_duration(duration_str)
+    if duration_seconds is None:
+      return await event.edit(LANG['INVALID_TIME'])
+    until_date = datetime.now().timestamp() + duration_seconds
+    
+  rights = ChatBannedRights(until_date=until_date, view_messages=True)
+  await event.client(EditBannedRequest(event.chat_id, user, rights))
+  await event.edit(LANG['BANNED'].format(user))
 
 @Neo.command(
   pattern='^kick ?(.*)',
@@ -55,13 +91,12 @@ async def ban(event):
   example='.kick @username'
 )
 async def kick(event):
-    user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
-    if not user:
-        return await event.edit(LANG['NO_USER'])
-    rights = ChatBannedRights(until_date=None, view_messages=True)
-    await event.client(EditBannedRequest(event.chat_id, user, rights))
-    await event.client(EditBannedRequest(event.chat_id, user, ChatBannedRights(until_date=None, view_messages=False)))
-    await event.edit(LANG['KICKED'].format(user))
+  user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
+  if not user:
+    return await event.edit(LANG['NO_USER'])
+  await event.client(EditBannedRequest(event.chat_id, user, ChatBannedRights(until_date=None, view_messages=True)))
+  await event.client(EditBannedRequest(event.chat_id, user, ChatBannedRights(until_date=None, view_messages=False)))
+  await event.edit(LANG['KICKED'].format(user))
 
 @Neo.command(
   pattern='^add ?(.*)',
