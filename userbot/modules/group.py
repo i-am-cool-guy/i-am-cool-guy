@@ -1,6 +1,6 @@
 from userbot import Neo
 from userbot.utils import lang
-from telethon.tl.functions.channels import EditBannedRequest, EditAdminRequest, InviteToChannelRequest
+from telethon.tl.functions.channels import EditBannedRequest, EditAdminRequest, InviteToChannelRequest, KickParticipantRequest
 from telethon.tl.functions.messages import ExportChatInviteRequest
 from telethon.tl.types import ChatBannedRights, ChatAdminRights
 from datetime import timedelta, datetime
@@ -16,10 +16,10 @@ def parse_duration(duration_str):
   return timedelta(days=days, hours=hours, minutes=minutes, seconds=seconds).total_seconds()
 
 @Neo.command(
-    pattern='^mute ?(\S+)?(?:\s+(.+))?',
-    info=LANG['MUTE_INFO'],
-    usage='.mute <user> <time>',
-    example='.mute @username 10m'
+  pattern='^mute ?(\S+)?(?:\s+(.+))?',
+  info=LANG['MUTE_INFO'],
+  usage='.mute <user> <time>',
+  example='.mute @username 10m'
 )
 async def mute(event):
   user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
@@ -94,8 +94,7 @@ async def kick(event):
   user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
   if not user:
     return await event.edit(LANG['NO_USER'])
-  await event.client(EditBannedRequest(event.chat_id, user, ChatBannedRights(until_date=None, view_messages=True)))
-  await event.client(EditBannedRequest(event.chat_id, user, ChatBannedRights(until_date=None, view_messages=False)))
+  await event.client(KickParticipantRequest(event.chat_id, user))
   await event.edit(LANG['KICKED'].format(user))
 
 @Neo.command(
@@ -105,11 +104,11 @@ async def kick(event):
   example='.add @username'
 )
 async def add(event):
-    user = event.pattern_match.group(1)
-    if not user:
-        return await event.edit(LANG['NO_USER'])
-    await event.client(InviteToChannelRequest(event.chat_id, [user]))
-    await event.edit(LANG['ADDED'].format(user))
+  user = event.pattern_match.group(1)
+  if not user:
+    return await event.edit(LANG['NO_USER'])
+  await event.client(InviteToChannelRequest(event.chat_id, [user]))
+  await event.edit(LANG['ADDED'].format(user))
 
 @Neo.command(
   pattern='^promote ?(.*)',
@@ -118,23 +117,24 @@ async def add(event):
   example='.promote @username'
 )
 async def promote(event):
-    user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
-    if not user:
-        return await event.edit(LANG['NO_USER'])
-    rights = rights = ChatAdminRights(
-      change_info=True,
-      post_messages=True,
-      edit_messages=True,
-      delete_messages=True,
-      ban_users=True,
-      invite_users=True,
-      pin_messages=True,
-      add_admins=False,
-      anonymous=False,
-      manage_call=True
-    )
-    await event.client(EditAdminRequest(event.chat_id, user, rights, "Admin"))
-    await event.edit(LANG['PROMOTED'].format(user))
+  user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
+  rights = event.pattern_match.group(2) or ['change_info', 'post_messages', 'edit_messages', 'delete_messages', 'ban_users', 'invite_users', 'pin_messages', 'manage_call']
+  if not user:
+    return await event.edit(LANG['NO_USER'])
+  rights = ChatAdminRights(
+    change_info=True if 'change_info' in rights else False,
+    post_messages=True if 'post_messages' in rights else False,
+    edit_messages=True if 'edit_messages' in rights else False,
+    delete_messages=True if 'delete_messages' in rights else False,
+    ban_users=True if 'ban_users' in rights else False,
+    invite_users=True if 'invite_users' in rights else False,
+    pin_messages=True if 'pin_messages' in rights else False,
+    add_admins=True if 'add_admins' in rights else False,
+    anonymous=True if 'anonymous' in rights else False,
+    manage_call=True if 'manage_call' in rights else False
+  )
+  await event.client(EditAdminRequest(event.chat_id, user, rights, "Admin"))
+  await event.edit(LANG['PROMOTED'].format(user))
 
 @Neo.command(
   pattern='^demote ?(.*)',
@@ -143,12 +143,24 @@ async def promote(event):
   example='.demote @username'
 )
 async def demote(event):
-    user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
-    if not user:
-        return await event.edit(LANG['NO_USER'])
-    rights = ChatAdminRights(post_messages=False, add_admins=False, pin_messages=False)
-    await event.client(EditAdminRequest(event.chat_id, user, rights, "Admin"))
-    await event.edit(LANG['DEMOTED'].format(user))
+  user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
+  rights = event.pattern_match.group(2) or ['change_info', 'post_messages', 'edit_messages', 'delete_messages', 'ban_users', 'invite_users', 'pin_messages', 'add_admins', 'anonymous', 'manage_call']
+  if not user:
+    return await event.edit(LANG['NO_USER'])
+  rights = ChatAdminRights(
+    change_info=False if 'change_info' in rights else True,
+    post_messages=False if 'post_messages' in rights else True,
+    edit_messages=False if 'edit_messages' in rights else True,
+    delete_messages=False if 'delete_messages' in rights else True,
+    ban_users=False if 'ban_users' in rights else True,
+    invite_users=False if 'invite_users' in rights else True,
+    pin_messages=False if 'pin_messages' in rights else True,
+    add_admins=False if 'add_admins' in rights else True,
+    anonymous=False if 'anonymous' in rights else True,
+    manage_call=False if 'manage_call' in rights else True
+  )
+  await event.client(EditAdminRequest(event.chat_id, user, rights, "Admin"))
+  await event.edit(LANG['DEMOTED'].format(user))
 
 @Neo.command(
   pattern='^pin$',
@@ -157,10 +169,10 @@ async def demote(event):
   example='.pin'
 )
 async def pin(event):
-    if not event.reply_to_msg_id:
-        return await event.edit(LANG['NO_MSG'])
-    await event.client.pin_message(event.chat_id, event.reply_to_msg_id)
-    await event.edit(LANG['PINNED'])
+  if not event.reply_to_msg_id:
+    return await event.edit(LANG['NO_MSG'])
+  await event.client.pin_message(event.chat_id, event.reply_to_msg_id)
+  await event.edit(LANG['PINNED'])
 
 @Neo.command(
   pattern='^revoke$',
@@ -169,8 +181,8 @@ async def pin(event):
   example='.revoke'
 )
 async def revoke(event):
-    link = await event.client(ExportChatInviteRequest(event.chat_id))
-    await event.edit(LANG['REVOKED'].format(link))
+  link = await event.client(ExportChatInviteRequest(event.chat_id))
+  await event.edit(LANG['REVOKED'].format(link))
 
 @Neo.command(
   pattern='^link$',
@@ -179,8 +191,8 @@ async def revoke(event):
   example='.link'
 )
 async def link(event):
-    link = await event.client(ExportChatInviteRequest(event.chat_id))
-    await event.edit(LANG['LINK'].format(link))
+  link = await event.client(ExportChatInviteRequest(event.chat_id))
+  await event.edit(LANG['LINK'].format(link))
 
 @Neo.command(
   pattern='^open$',
@@ -189,9 +201,9 @@ async def link(event):
   example='.open'
 )
 async def open_chat(event):
-    rights = ChatBannedRights(until_date=None, send_messages=False)
-    await event.client(EditBannedRequest(event.chat_id, event.chat_id, rights))
-    await event.edit(LANG['OPENED'])
+  rights = ChatBannedRights(until_date=None, send_messages=False)
+  await event.client(EditBannedRequest(event.chat_id, event.chat_id, rights))
+  await event.edit(LANG['OPENED'])
 
 @Neo.command(
   pattern='^close$',
@@ -200,6 +212,6 @@ async def open_chat(event):
   example='.close'
 )
 async def close_chat(event):
-    rights = ChatBannedRights(until_date=None, send_messages=True)
-    await event.client(EditBannedRequest(event.chat_id, event.chat_id, rights))
-    await event.edit(LANG['CLOSED'])
+  rights = ChatBannedRights(until_date=None, send_messages=True)
+  await event.client(EditBannedRequest(event.chat_id, event.chat_id, rights))
+  await event.edit(LANG['CLOSED'])
