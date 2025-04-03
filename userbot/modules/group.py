@@ -119,7 +119,7 @@ async def add(event):
 )
 async def promote(event):
   user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
-  rights = event.pattern_match.group(2) or ['change_info', 'post_messages', 'edit_messages', 'delete_messages', 'ban_users', 'invite_users', 'pin_messages', 'manage_call']
+  rights = event.pattern_match.group(2) if event.pattern_match.lastindex >= 2 else ['change_info', 'post_messages', 'edit_messages', 'delete_messages', 'ban_users', 'invite_users', 'pin_messages', 'manage_call']
   if not user:
     return await event.edit(LANG['NO_USER'])
   rights = ChatAdminRights(
