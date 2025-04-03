@@ -1,6 +1,6 @@
 from userbot import Neo
 from userbot.utils import lang
-from telethon.tl.functions.channels import EditBannedRequest, EditAdminRequest, InviteToChannelRequest, KickParticipantRequest
+from telethon.tl.functions.channels import EditBannedRequest, EditAdminRequest, InviteToChannelRequest
 from telethon.tl.functions.messages import ExportChatInviteRequest
 from telethon.tl.types import ChatBannedRights, ChatAdminRights
 from datetime import timedelta, datetime
@@ -85,17 +85,18 @@ async def ban(event):
   await event.edit(LANG['BANNED'].format(user))
 
 @Neo.command(
-  pattern='^kick ?(.*)',
-  info=LANG['KICK_INFO'],
-  usage='.kick <user>',
-  example='.kick @username'
+    pattern='^kick ?(.*)',
+    info=LANG['KICK_INFO'],
+    usage='.kick <user>',
+    example='.kick @username'
 )
 async def kick(event):
   user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
   if not user:
     return await event.edit(LANG['NO_USER'])
-  await event.client(KickParticipantRequest(event.chat_id, user))
-  await event.edit(LANG['KICKED'].format(user))
+  await event.client(EditBannedRequest(event.chat_id, user, ChatBannedRights(until_date=None, view_messages=True)))
+  await event.client(EditBannedRequest(event.chat_id, user, ChatBannedRights(until_date=None, view_messages=False)))
+  return await event.edit(LANG['KICKED'].format(user))
 
 @Neo.command(
   pattern='^add ?(.*)',
