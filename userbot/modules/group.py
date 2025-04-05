@@ -114,8 +114,8 @@ async def add(event):
 @Neo.command(
   pattern='^promote ?(.*)',
   info=LANG['PROMOTE_INFO'],
-  usage='.promote <user>',
-  example='.promote @username'
+  usage='.promote <user> <rights>',
+  example='.promote @username change_info,delete_messages'
 )
 async def promote(event):
   user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
@@ -140,12 +140,12 @@ async def promote(event):
 @Neo.command(
   pattern='^demote ?(.*)',
   info=LANG['DEMOTE_INFO'],
-  usage='.demote <user>',
-  example='.demote @username'
+  usage='.demote <user> <rights>',
+  example='.demote @username change_info,delete_messages'
 )
 async def demote(event):
   user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
-  rights = event.pattern_match.group(2) or ['change_info', 'post_messages', 'edit_messages', 'delete_messages', 'ban_users', 'invite_users', 'pin_messages', 'add_admins', 'anonymous', 'manage_call']
+  rights = event.pattern_match.group(2) if event.pattern_match.lastindex >= 2 else ['change_info', 'post_messages', 'edit_messages', 'delete_messages', 'ban_users', 'invite_users', 'pin_messages', 'manage_call']
   if not user:
     return await event.edit(LANG['NO_USER'])
   rights = ChatAdminRights(
