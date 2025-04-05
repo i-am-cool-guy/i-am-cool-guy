@@ -202,8 +202,10 @@ async def link(event):
   example='.open'
 )
 async def open_chat(event):
-  rights = ChatBannedRights(until_date=None, send_messages=False)
-  await event.client(EditBannedRequest(event.chat_id, event.chat_id, rights))
+  await event.client(EditChatDefaultBannedRightsRequest(
+    peer=event.chat_id,
+    banned_rights=ChatBannedRights(send_messages=False, until_date=None)
+  ))
   await event.edit(LANG['OPENED'])
 
 @Neo.command(
@@ -213,6 +215,8 @@ async def open_chat(event):
   example='.close'
 )
 async def close_chat(event):
-  rights = ChatBannedRights(until_date=None, send_messages=True)
-  await event.client(EditBannedRequest(event.chat_id, event.chat_id, rights))
+  await event.client(EditChatDefaultBannedRightsRequest(
+    peer=event.chat_id,
+    banned_rights=ChatBannedRights(send_messages=True, until_date=None)
+  ))
   await event.edit(LANG['CLOSED'])
