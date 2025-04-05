@@ -112,7 +112,7 @@ async def add(event):
   await event.edit(LANG['ADDED'].format(user))
 
 @Neo.command(
-  pattern=r'^promote([^\s]+)(?:\s+(.+))?',
+  pattern=r'^promote\s+([^\s]+)(?:\s+(.+))?',
   info=LANG['PROMOTE_INFO'],
   usage='.promote <user> <rights>',
   example='.promote @username change_info,delete_messages'
@@ -151,7 +151,7 @@ async def promote(event):
   await event.edit(LANG['PROMOTED'].format(user))
 
 @Neo.command(
-  pattern=r'^demote([^\s]+)(?:\s+(.+))?',
+  pattern=r'^demote\s+([^\s]+)(?:\s+(.+))?',
   info=LANG['DEMOTE_INFO'],
   usage='.demote <user> <rights>',
   example='.demote @username change_info,delete_messages'
