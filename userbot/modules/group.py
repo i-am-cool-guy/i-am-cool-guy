@@ -112,53 +112,79 @@ async def add(event):
   await event.edit(LANG['ADDED'].format(user))
 
 @Neo.command(
-  pattern='^promote ?(.*)',
+  pattern=r'^promote(?:\s+([^\s]+))?(?:\s+(.+))?',
   info=LANG['PROMOTE_INFO'],
   usage='.promote <user> <rights>',
   example='.promote @username change_info,delete_messages'
 )
 async def promote(event):
-  user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
-  rights = event.pattern_match.group(2) if event.pattern_match.lastindex >= 2 else ['change_info', 'post_messages', 'edit_messages', 'delete_messages', 'ban_users', 'invite_users', 'pin_messages', 'manage_call']
+  if event.is_reply:
+    user = (await event.get_reply_message()).sender_id
+    rights_str = event.pattern_match.group(1)
+  else:
+    user = event.pattern_match.group(1)
+    rights_str = event.pattern_match.group(2)
+
   if not user:
     return await event.edit(LANG['NO_USER'])
+
+  rights_list = []
+  if rights_str:
+    for r in rights_str.split(','):
+      rights_list.append(r.strip())
+  else:
+    rights_list = ['change_info', 'post_messages', 'edit_messages', 'delete_messages', 'ban_users', 'invite_users', 'pin_messages', 'manage_call']
+    
   rights = ChatAdminRights(
-    change_info=True if 'change_info' in rights else False,
-    post_messages=True if 'post_messages' in rights else False,
-    edit_messages=True if 'edit_messages' in rights else False,
-    delete_messages=True if 'delete_messages' in rights else False,
-    ban_users=True if 'ban_users' in rights else False,
-    invite_users=True if 'invite_users' in rights else False,
-    pin_messages=True if 'pin_messages' in rights else False,
-    add_admins=True if 'add_admins' in rights else False,
-    anonymous=True if 'anonymous' in rights else False,
-    manage_call=True if 'manage_call' in rights else False
+    change_info='change_info' in rights_list,
+    post_messages='post_messages' in rights_list,
+    edit_messages='edit_messages' in rights_list,
+    delete_messages='delete_messages' in rights_list,
+    ban_users='ban_users' in rights_list,
+    invite_users='invite_users' in rights_list,
+    pin_messages='pin_messages' in rights_list,
+    add_admins='add_admins' in rights_list,
+    anonymous='anonymous' in rights_list,
+    manage_call='manage_call' in rights_list
   )
   await event.client(EditAdminRequest(event.chat_id, user, rights, "Admin"))
   await event.edit(LANG['PROMOTED'].format(user))
 
 @Neo.command(
-  pattern='^demote ?(.*)',
+  pattern=r'^demote(?:\s+([^\s]+))?(?:\s+(.+))?',
   info=LANG['DEMOTE_INFO'],
   usage='.demote <user> <rights>',
   example='.demote @username change_info,delete_messages'
 )
 async def demote(event):
-  user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
-  rights = event.pattern_match.group(2) if event.pattern_match.lastindex >= 2 else ['change_info', 'post_messages', 'edit_messages', 'delete_messages', 'ban_users', 'invite_users', 'pin_messages', 'manage_call']
+  if event.is_reply:
+    user = (await event.get_reply_message()).sender_id
+    rights_str = event.pattern_match.group(1)
+  else:
+    user = event.pattern_match.group(1)
+    rights_str = event.pattern_match.group(2)
+
   if not user:
     return await event.edit(LANG['NO_USER'])
+
+  rights_list = []
+  if rights_str:
+    for r in rights_str.split(','):
+      rights_list.append(r.strip())
+  else:
+    rights_list = ['change_info', 'post_messages', 'edit_messages', 'delete_messages', 'ban_users', 'invite_users', 'pin_messages', 'manage_call']
+    
   rights = ChatAdminRights(
-    change_info=False if 'change_info' in rights else True,
-    post_messages=False if 'post_messages' in rights else True,
-    edit_messages=False if 'edit_messages' in rights else True,
-    delete_messages=False if 'delete_messages' in rights else True,
-    ban_users=False if 'ban_users' in rights else True,
-    invite_users=False if 'invite_users' in rights else True,
-    pin_messages=False if 'pin_messages' in rights else True,
-    add_admins=False if 'add_admins' in rights else True,
-    anonymous=False if 'anonymous' in rights else True,
-    manage_call=False if 'manage_call' in rights else True
+    change_info='change_info' not in rights_list,
+    post_messages='post_messages' not in rights_list,
+    edit_messages='edit_messages' not in rights_list,
+    delete_messages='delete_messages' not in rights_list,
+    ban_users='ban_users' not in rights_list,
+    invite_users='invite_users' not in rights_list,
+    pin_messages='pin_messages' not in rights_list,
+    add_admins='add_admins' not in rights_list,
+    anonymous='anonymous' not in rights_list,
+    manage_call='manage_call' not in rights_list
   )
   await event.client(EditAdminRequest(event.chat_id, user, rights, "Admin"))
   await event.edit(LANG['DEMOTED'].format(user))
