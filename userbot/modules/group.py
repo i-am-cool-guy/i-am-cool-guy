@@ -114,63 +114,49 @@ async def add(event):
 @Neo.command(
   pattern=r'^promote ?(.*)',
   info=LANG['PROMOTE_INFO'],
-  usage='.promote <user> <rights>',
-  example='.promote @username change_info,delete_messages'
+  usage='.promote <user>',
+  example='.promote @username'
 )
 async def promote(event):
   user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
   if not user:
     return await event.edit(LANG['NO_USER'])
   rights = ChatAdminRights(
-    change_info='change_info' in rights_list,
-    post_messages='post_messages' in rights_list,
-    edit_messages='edit_messages' in rights_list,
-    delete_messages='delete_messages' in rights_list,
-    ban_users='ban_users' in rights_list,
-    invite_users='invite_users' in rights_list,
-    pin_messages='pin_messages' in rights_list,
-    add_admins='add_admins' in rights_list,
-    anonymous='anonymous' in rights_list,
-    manage_call='manage_call' in rights_list
+    change_info=True,
+    post_messages=True,
+    edit_messages=True,
+    delete_messages=True,
+    ban_users=True,
+    invite_users=True,
+    pin_messages=True,
+    add_admins=False,
+    anonymous=False,
+    manage_call=True
   )
   await event.client(EditAdminRequest(event.chat_id, user, rights, "Admin"))
   await event.edit(LANG['PROMOTED'].format(user))
 
 @Neo.command(
-  pattern=r'^demote(?:\s+([^\s]+))?(?:\s+(.+))?',
+  pattern=r'^demote ?(.*)',
   info=LANG['DEMOTE_INFO'],
-  usage='.demote <user> <rights>',
-  example='.demote @username change_info,delete_messages'
+  usage='.demote <user>',
+  example='.demote @username'
 )
 async def demote(event):
-  if event.is_reply:
-    user = (await event.get_reply_message()).sender_id
-    rights_str = event.pattern_match.group(1)
-  else:
-    user = event.pattern_match.group(1)
-    rights_str = event.pattern_match.group(2)
-
+  user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
   if not user:
     return await event.edit(LANG['NO_USER'])
-
-  rights_list = []
-  if rights_str:
-    for r in rights_str.split(','):
-      rights_list.append(r.strip())
-  else:
-    rights_list = ['change_info', 'post_messages', 'edit_messages', 'delete_messages', 'ban_users', 'invite_users', 'pin_messages', 'manage_call']
-    
   rights = ChatAdminRights(
-    change_info='change_info' not in rights_list,
-    post_messages='post_messages' not in rights_list,
-    edit_messages='edit_messages' not in rights_list,
-    delete_messages='delete_messages' not in rights_list,
-    ban_users='ban_users' not in rights_list,
-    invite_users='invite_users' not in rights_list,
-    pin_messages='pin_messages' not in rights_list,
-    add_admins='add_admins' not in rights_list,
-    anonymous='anonymous' not in rights_list,
-    manage_call='manage_call' not in rights_list
+    change_info=False,
+    post_messages=False,
+    edit_messages=False,
+    delete_messages=False,
+    ban_users=False,
+    invite_users=False,
+    pin_messages=False,
+    add_admins=False,
+    anonymous=False,
+    manage_call=False
   )
   await event.client(EditAdminRequest(event.chat_id, user, rights, "Admin"))
   await event.edit(LANG['DEMOTED'].format(user))
