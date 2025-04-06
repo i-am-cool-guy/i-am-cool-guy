@@ -1,10 +1,10 @@
 import re
+from datetime import timedelta, datetime
 from userbot import Neo
 from userbot.utils import lang
-from telethon.tl.functions.channels import EditBannedRequest, EditAdminRequest, InviteToChannelRequest
-from telethon.tl.functions.messages import ExportChatInviteRequest, EditChatDefaultBannedRightsRequest
+from telethon.tl.functions.channels import EditBannedRequest, EditAdminRequest, InviteToChannelRequest, GetFullChannelRequest
+from telethon.tl.functions.messages import ExportChatInviteRequest, EditChatDefaultBannedRightsRequest, GetFullChatRequest
 from telethon.tl.types import ChatBannedRights, ChatAdminRights
-from datetime import timedelta, datetime
 
 LANG = lang('group')
 
@@ -14,7 +14,7 @@ def parse_duration(duration_str):
   if not match:
     return None
   days, hours, minutes, seconds = (int(match.group(i) or 0) for i in range(1, 5))
-  return timedelta(days=days, hours=hours, minutes=seconds).total_seconds()
+  return timedelta(days=days, hours=hours, minutes=minutes, seconds=seconds).total_seconds()
 
 @Neo.command(
   pattern='^mute ?(\S+)?(?:\s+(.+))?',
@@ -218,8 +218,13 @@ async def link(event):
   example='.open'
 )
 async def open_chat(event):
-  rights = await event.client.get_chat_default_banned_rights(event.chat_id)
-  if rights.send_messages is False:
+  try:
+    full = await event.client(GetFullChatRequest(event.chat_id))
+    current_rights = full.full_chat.default_banned_rights
+  except Exception:
+    full = await event.client(GetFullChannelRequest(event.chat_id))
+    current_rights = full.full_chat.default_banned_rights
+  if current_rights.send_messages is False:
     return await event.edit(LANG['ALREADY_OPEN'])
   new_rights = ChatBannedRights(send_messages=False)
   await event.client(EditChatDefaultBannedRightsRequest(event.chat_id, new_rights))
@@ -232,8 +237,13 @@ async def open_chat(event):
   example='.close'
 )
 async def close_chat(event):
-  rights = await event.client.get_chat_default_banned_rights(event.chat_id)
-  if rights.send_messages is True:
+  try:
+    full = await event.client(GetFullChatRequest(event.chat_id))
+    current_rights = full.full_chat.default_banned_rights
+  except Exception:
+    full = await event.client(GetFullChannelRequest(event.chat_id))
+    current_rights = full.full_chat.default_banned_rights
+  if current_rights.send_messages is True:
     return await event.edit(LANG['ALREADY_CLOSED'])
   new_rights = ChatBannedRights(send_messages=True)
   await event.client(EditChatDefaultBannedRightsRequest(event.chat_id, new_rights))
