@@ -59,8 +59,19 @@
     "LINK": "**🔗 Group invite link: {0}**",
     "PINNED": "**📌 Message pinned successfully.**",
     "OPENED": "**🗣️ Group is now open for everyone to send messages.**",
-    "CLOSED": "**🔐 Group is now restricted to admins only.",
-    "NO_TYPE": "**No restriction type specified.**"
+    "CLOSED": "**🔐 Group is now restricted to admins only.**",
+    "NO_TYPE": "**No restriction type specified.**",
+    "ALREADY_MUTED": "**👤 {0} is already muted.**",
+    "ALREADY_UNMUTED": "**👤 {0} is not muted.**",
+    "ALREADY_BANNED": "**👤 {0} is already banned.**",
+    "NOT_IN_GROUP": "**👤 {0} is not in the group.**",
+    "ALREADY_IN_GROUP": "👤 {0} is already in the group.",
+    "ALREADY_PROMOTED": "👤 {0} is already an admin.",
+    "ALREADY_DEMOTED": "👤 {0} is not an admin.",
+    "UNPINNED": "**📌 Message unpinned successfully.**",
+    "NOT_PINNED": "**❌ The replied message is not pinned.**",
+    "ALREADY_OPEN": "**🗣️ Group is already open.**",
+    "ALREADY_CLOSED": "**🔐 Group is already closed.**"
   },
   "sys": {
     "ALIVE_INFO": "Checks whether the bot is alive or not.",
