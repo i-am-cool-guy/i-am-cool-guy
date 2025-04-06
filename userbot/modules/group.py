@@ -112,29 +112,15 @@ async def add(event):
   await event.edit(LANG['ADDED'].format(user))
 
 @Neo.command(
-  pattern=r'^promote(?:\s+([^\s]+))?(?:\s+(.+))?',
+  pattern=r'^promote ?(.*)',
   info=LANG['PROMOTE_INFO'],
   usage='.promote <user> <rights>',
   example='.promote @username change_info,delete_messages'
 )
 async def promote(event):
-  if event.is_reply:
-    user = (await event.get_reply_message()).sender_id
-    rights_str = event.pattern_match.group(1)
-  else:
-    user = event.pattern_match.group(1)
-    rights_str = event.pattern_match.group(2)
-
+  user = await event.get_chat() if event.is_reply else event.pattern_match.group(1)
   if not user:
     return await event.edit(LANG['NO_USER'])
-
-  rights_list = []
-  if rights_str:
-    for r in rights_str.split(','):
-      rights_list.append(r.strip())
-  else:
-    rights_list = ['change_info', 'post_messages', 'edit_messages', 'delete_messages', 'ban_users', 'invite_users', 'pin_messages', 'manage_call']
-    
   rights = ChatAdminRights(
     change_info='change_info' in rights_list,
     post_messages='post_messages' in rights_list,
