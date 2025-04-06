@@ -191,7 +191,7 @@ async def revoke(event):
 )
 async def link(event):
   link = await event.client(ExportChatInviteRequest(event.chat_id))
-  await event.edit(LANG['LINK'].format(link))
+  await event.edit(LANG['LINK'].format(link['link']))
 
 @Neo.command(
   pattern='^open$',
