@@ -3,7 +3,6 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from spotipy import Spotify
 from aiohttp import ClientSession
 from googletrans import Translator
-from rsnchat import RsnChat
 from userbot import VERSION, LANGUAGE, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 from os import path
 import asyncio, sys, json
@@ -148,14 +147,6 @@ def translate(text, lang_to=LANGUAGE):
   translator = Translator()
   translation = translator.translate(text, dest=lang_to)
   return translation if isinstance(text, list) else translation.text
-
-def ai(ai, text):
-  conn = RsnChat('rsnai_1WZBGHRi6kA4cjyKNrZTuEVY') # Replace the key with yours, refer https://pypi.org/project/rsnchat/
-  try:
-    res = getattr(conn, ai)(text)
-    return res.get('message', False)
-  except Exception as e:
-    return False
 
 def lang(key):
   try:
