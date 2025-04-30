@@ -73,6 +73,12 @@
     "ALREADY_OPEN": "**🗣️ Group is already open.**",
     "ALREADY_CLOSED": "**🔐 Group is already closed.**"
   },
+  "spotify": {
+    "SPOTIFY_INFO": "Search track information from spotify.",
+    "SPOTIFY_NONE": "**Please provide a track to search.**",
+    "SPOTIFY_FAILED": "**I cannot find any information for this track.**",
+    "SPOTIFY_TRACK": "__Title:__ **{}**\n__Type:__ **{}**\n__Duration:__ **{}**\n__Release date:__ **{}**\n__Artists:__ **{}**\n__Explicit:__ **{}**\n__Popularity:__ **{}**\n__Track URL:__ {}"
+  },
   "sys": {
     "ALIVE_INFO": "Checks whether the bot is alive or not.",
     "ALIVE": "**{}**\n\n__Version:__ {}\n__Channel:__ @{}\n__Support Group:__ @{}\n\n[Telegram userbot - Neo]({})",
