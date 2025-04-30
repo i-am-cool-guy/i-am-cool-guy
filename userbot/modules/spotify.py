@@ -15,4 +15,11 @@ async def spotify(event):
     return await event.edit("__Provide a track.__")
   await event.edit("```Downloading ...```")
   data = spotify_search(text)
-  print(data)
+  info = f"""__Title:__ **{data[0].title}**\n
+__Type:__ **{data[0].track}**
+__Release date:__ **{(data[0].release_date).split("-").reverse()}**
+__Artists:__ **{}**
+__Explicit:__ **{"Yes" if data[0].explicit == True else "No"}**
+__Popularity:__ **{data[0].popularity}**
+__Track URL:__ {data.track_url}
+"""
