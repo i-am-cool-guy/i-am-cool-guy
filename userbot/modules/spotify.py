@@ -5,30 +5,25 @@ LANG = lang('spotify')
 
 @Neo.command(
     pattern='^spotify ?(.*)',
-    info="Search spotify track.",
+    info=LANG["SPOTIFY_INFO"],
     usage='.spotify <track>',
     example='.spotify husn'
 )
 async def spotify(event):
   text = event.pattern_match.group(1) or False
   if text == False:
-    return await event.edit("**Please enter a track!**")
-  await event.edit("`Searching ...`")
+    return await event.edit(LANG["SPOTIFY_NONE"])
   data = spotify_search(text)
-  track = data[0]
-  duration_seconds = track['duration'] // 1000
-  minutes = duration_seconds // 60
-  seconds = duration_seconds % 60
-  mmss_duration = f"{minutes}:{seconds:02}"
-  info = f"""__Title:__ **{track["title"]}**
-__Type:__ **{track["type"]}**
-__Duration:__ **{mmss_duration}**
-__Release date:__ **{'-'.join(reversed(track["release_date"].split('-')))}**
-__Artists:__ **{', '.join([f"[{artist['name']}]({artist['url']})" for artist in track['artists']])}**
-__Explicit:__ **{"Yes" if track["explicit"] == True else "No"}**
-__Popularity:__ **{track["popularity"]}**
-__Track URL:__ {track["track_url"]}
-"""
+  info = False
+  for d in data:
+    if d["type"] == "track":
+      duration_seconds = track['duration'] // 1000
+      minutes = duration_seconds // 60
+      seconds = duration_seconds % 60
+      mmss_duration = f"{minutes}:{seconds:02}"
+      info = LANG["SPOTIFY_TRACK"].format(track["title"], mmss_duration, '-'.join(reversed(track["release_date"].split('-'))), ', '.join([f"[{artist['name']}]({artist['url']})" for artist in track['artists']]), "Yes" if track["explicit"] == True else "No", track["popularity"], track["track_url"])
+  if not info:
+    return await event.edit(LANG["SPOTIFY_FAILED"])
   return await Neo.send_file(event.chat_id,
     file=track['images'][0]['url'],
     caption=info,
