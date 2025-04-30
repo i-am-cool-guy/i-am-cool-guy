@@ -76,8 +76,8 @@
   "spotify": {
     "SPOTIFY_INFO": "Search track information from spotify.",
     "SPOTIFY_NONE": "**Please provide a track to search.**",
-    "SPOTIFY_FAILED": "**I cannot find any information for this track.**",
-    "SPOTIFY_TRACK": "__Title:__ **{}**\n__Type:__ **{}**\n__Duration:__ **{}**\n__Release date:__ **{}**\n__Artists:__ **{}**\n__Explicit:__ **{}**\n__Popularity:__ **{}**\n__Track URL:__ {}"
+    "SPOTIFY_FAILED": "**I could not find any information for this track.**",
+    "SPOTIFY_TRACK": "__Title:__ **{}**\n__Duration:__ **{}**\n__Release date:__ **{}**\n__Artists:__ **{}**\n__Explicit:__ **{}**\n__Popularity:__ **{}**\n__Track URL:__ {}"
   },
   "sys": {
     "ALIVE_INFO": "Checks whether the bot is alive or not.",
@@ -127,6 +127,6 @@
     "PHONETICS": "__Phonetics__",
     "POP": "__Parts of speech__",
     "DEF": "__Definition__",
-    "DEF_FAILED": "**I cannot find this word in dictionary!**"
+    "DEF_FAILED": "**I could not find this word in dictionary!**"
   }
 }
