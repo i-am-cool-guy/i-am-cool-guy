@@ -15,11 +15,22 @@ async def spotify(event):
     return await event.edit("__Provide a track.__")
   await event.edit("```Downloading ...```")
   data = spotify_search(text)
-  info = f"""__Title:__ **{data[0].title}**\n
-__Type:__ **{data[0].track}**
-__Release date:__ **{(data[0].release_date).split("-").reverse()}**
-__Artists:__ **{}**
-__Explicit:__ **{"Yes" if data[0].explicit == True else "No"}**
-__Popularity:__ **{data[0].popularity}**
-__Track URL:__ {data.track_url}
+  track = data[0]
+  duration_seconds = track['duration'] // 1000
+  minutes = duration_seconds // 60
+  seconds = duration_seconds % 60
+  mmss_duration = f"{minutes}:{seconds:02}"
+  info = f"""__Title:__ **{track["title"]}**\n
+__Type:__ **{track["type"]}**
+__Duration:__ **{mmss_duration}**
+__Release date:__ **{'-'.join(reversed(track["release_date"].split('-')))}**
+__Artists:__ **{', '.join([f"[{artist['name']}]({artist['url']})" for artist in track['artists']])}**
+__Explicit:__ **{"Yes" if track["explicit"] == True else "No"}**
+__Popularity:__ **{track["popularity"]}**
+__Track URL:__ {track["track_url"]}
 """
+  return await Neo.send_file(event.chat_id,
+    file=track['images'][0]['url'],
+    caption=info,
+    parse_mode='md'
+  )
