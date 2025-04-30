@@ -12,15 +12,15 @@ LANG = lang('spotify')
 async def spotify(event):
   text = event.pattern_match.group(1) or False
   if text == False:
-    return await event.edit("__Provide a track.__")
-  await event.edit("```Downloading ...```")
+    return await event.edit("**Please enter a track!**")
+  await event.edit("`Searching ...`")
   data = spotify_search(text)
   track = data[0]
   duration_seconds = track['duration'] // 1000
   minutes = duration_seconds // 60
   seconds = duration_seconds % 60
   mmss_duration = f"{minutes}:{seconds:02}"
-  info = f"""__Title:__ **{track["title"]}**\n
+  info = f"""__Title:__ **{track["title"]}**
 __Type:__ **{track["type"]}**
 __Duration:__ **{mmss_duration}**
 __Release date:__ **{'-'.join(reversed(track["release_date"].split('-')))}**
