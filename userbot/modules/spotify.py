@@ -15,8 +15,8 @@ async def spotify(event):
     return await event.edit(LANG["SPOTIFY_NONE"])
   data = spotify_search(text)
   info = False
-  for d in data:
-    if d["type"] == "track":
+  for track in data:
+    if track["type"] == "track":
       duration_seconds = track['duration'] // 1000
       minutes = duration_seconds // 60
       seconds = duration_seconds % 60
