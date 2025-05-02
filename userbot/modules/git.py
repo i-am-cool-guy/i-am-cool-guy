@@ -1,6 +1,7 @@
 from telethon import events
-from userbot import Neo, PREFIX
+from userbot import Neo, PREFIX, VERSION
 from userbot.utils import update, rollback, lang
+import sys, os
 
 LANG = lang('git')
 
@@ -21,7 +22,9 @@ async def _update(event):
   await event.edit(LANG['UPDATING'])
   if status == False:
     return await event.edit(LANG['UP-TO-DATE'])
-  return await event.reply(LANG['UPDATED'])
+  await event.reply(LANG['UPDATED'])
+  await Neo.disconnect()
+  os.execv(sys.executable, [sys.executable, "-m", "userbot"])
 
 @Neo.command(
   pattern='^rollback ?(.*)',
