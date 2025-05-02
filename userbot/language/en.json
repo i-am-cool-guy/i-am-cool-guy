@@ -26,8 +26,8 @@
     "VERSION_DEP": "**Rolling back to v{} is no longer possible.**",
     "UPDATE_FAILED": "**Failed to update Neo to latest version!**",
     "ROLLBACK_FAILED": "**Failed to rollback Neo to specified version!**",
-    "UPDATED": "**Neo is updated. Neo will restart shortly to apply changes.**",
-    "ROLLED_BACK": "**Neo rolled back to v{}.**"
+    "UPDATED": "**Neo has been updated and will restart shortly to apply the changes.**",
+    "ROLLED_BACK": "**Neo has been rolled back to v{} and will restart shortly to apply the changes.**"
   },
   "group": {
     "MUTE_INFO": "Mutes a user for a specified duration.",
