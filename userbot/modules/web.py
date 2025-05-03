@@ -42,10 +42,10 @@ async def dict(event):
 async def wikipedia(event):
   text = event.pattern_match.group(1)
   if not text:
-    return event.edit(LANG["WIKI_NONE"])
+    return await event.edit(LANG["WIKI_NONE"])
   data = await request('get', 'https://toxicdevilapi.vercel.app/search/wikipedia?lang=en&query=' + text, 'json')
   if data["status_code"] == 200:
     info = "**" + data["result"]["title"] + "**\n\n__" + data["result"]["info"] + "__\n\n" + data["result"]["url"]
-    return event.edit(info)
+    return await event.edit(info)
   else:
-    return event.edit(LANG["WIKI_FAILED"])
+    return await event.edit(LANG["WIKI_FAILED"])
