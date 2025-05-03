@@ -45,7 +45,7 @@ async def wikipedia(event):
     return await event.edit(LANG["WIKI_NONE"])
   data = await request('get', f"https://{LANGUAGE}.wikipedia.org/w/api.php?action=query&prop=extracts&titles={text}&exintro=&exsentences=10&explaintext=&redirects=&formatversion=2&format=json", 'json')
   try:
-    info = "**" + data["result"]["title"] + "**\n\n__" + data["result"]["info"] + "__\n\n" + data["result"]["url"]
+    info = "**" + data["pages"]["title"] + "**\n\n__" + data["pages"]["extract"] + "__\n\n" + "https://en."
     return await event.edit(info)
   except Error as e:
     raise ValueError(e)
