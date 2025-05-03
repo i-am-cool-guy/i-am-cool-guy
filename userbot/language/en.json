@@ -127,6 +127,9 @@
     "PHONETICS": "__Phonetics__",
     "POP": "__Parts of speech__",
     "DEF": "__Definition__",
-    "DEF_FAILED": "**I could not find this word in dictionary!**"
+    "DEF_FAILED": "**I could not find this word in dictionary!**",
+    "WIKI_INFO": "Search article in wikipedia.",
+    "WIKI_NONE": "**Please provide an article to search.**",
+    "WIKI_FAILED": "**I could not find any article!**"
   }
 }
