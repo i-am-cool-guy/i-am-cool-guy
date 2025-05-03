@@ -43,7 +43,7 @@ async def wikipedia(event):
   text = event.pattern_match.group(1)
   if not text:
     return await event.edit(LANG["WIKI_NONE"])
-  data = await request('get', f"https://{LANGUAGE.split("")[0] + LANGUAGE.split("")[1]}.wikipedia.org/w/api.php?action=query&prop=extracts&titles={text}&exintro=&exsentences=10&explaintext=&redirects=&formatversion=2&format=json", 'json')
+  data = await request('get', f"https://{LANGUAGE[:-1]}.wikipedia.org/w/api.php?action=query&prop=extracts&titles={text}&exintro=&exsentences=10&explaintext=&redirects=&formatversion=2&format=json", 'json')
   if data["status_code"] == 200:
     info = "**" + data["result"]["title"] + "**\n\n__" + data["result"]["info"] + "__\n\n" + data["result"]["url"]
     return await event.edit(info)
