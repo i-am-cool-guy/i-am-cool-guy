@@ -44,8 +44,9 @@ async def wikipedia(event):
   if not text:
     return await event.edit(LANG["WIKI_NONE"])
   data = await request('get', f"https://{LANGUAGE}.wikipedia.org/w/api.php?action=query&prop=extracts&titles={text}&exintro=&exsentences=10&explaintext=&redirects=&formatversion=2&format=json", 'json')
-  if data["status_code"] == 200:
+  try:
     info = "**" + data["result"]["title"] + "**\n\n__" + data["result"]["info"] + "__\n\n" + data["result"]["url"]
     return await event.edit(info)
-  else:
+  except Error as e:
+    raise ValueError(e)
     return await event.edit(LANG["WIKI_FAILED"])
