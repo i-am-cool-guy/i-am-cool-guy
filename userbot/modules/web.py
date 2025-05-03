@@ -45,7 +45,7 @@ async def wikipedia(event):
     return event.edit(LANG["WIKI_NONE"])
   data = await request('get', 'https://toxicdevilapi.vercel.app/search/wikipedia?lang=en&query=' + text, 'json')
   if data["status_code"] == 200:
-    info = "**" + data["result"]["title"] "**\n\n__" + data["result"]["info"] + "__\n\n" + data["result"]["url"]
+    info = "**" + data["result"]["title"] + "**\n\n__" + data["result"]["info"] + "__\n\n" + data["result"]["url"]
     return event.edit(info)
   else:
     return event.edit(LANG["WIKI_FAILED"])
