@@ -1,4 +1,5 @@
 from telethon import events
+from telethon.tl.types import MessageEntityMentionName
 from userbot import Neo, PREFIX
 from userbot.utils import lang
 import os
@@ -15,7 +16,7 @@ async def whois(event):
     user = (await replied_msg.get_sender()).id
   if event.entities:
     for entity in event.entities:
-      if isinstance(entity, events.message.MessageEntityMentionName):
+      if isinstance(entity, MessageEntityMentionName):
         user = entity.user_id
   user_info = await Neo.get_entity(user)
   print(user_info)
