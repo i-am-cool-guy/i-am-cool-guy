@@ -4,7 +4,6 @@ from telethon.tl.functions.users import GetFullUserRequest
 from userbot import Neo, PREFIX
 from userbot.utils import lang
 import os
-import mimetypes
 
 LANG = lang('whois')
 
@@ -30,11 +29,6 @@ async def whois(event):
   extra = full.full_user
   pp_path = os.path.join("../temp/", f"{user_id}")
   downloaded = await Neo.download_profile_photo(user_id, file=pp_path)
-  if downloaded:
-    mime_type, _ = mimetypes.guess_type(downloaded)
-    is_image = mime_type is not None and mime_type.startswith('image/')
-  else:
-    is_image = False
   status = 'Unknown'
   if isinstance(user.status, UserStatusOnline):
     status = 'Online'
@@ -54,9 +48,6 @@ async def whois(event):
     f"Is Bot: {'Yes' if user.bot else 'No'}\n"
   )
   if downloaded:
-    if not is_image:
-      await Neo.send_file(event.chat_id, downloaded, caption=info, force_document=True)
-    else:
-      await Neo.send_file(event.chat_id, downloaded, caption=info)
+    await Neo.send_file(event.chat_id, downloaded, caption=info)
   else:
     await event.reply(info)
