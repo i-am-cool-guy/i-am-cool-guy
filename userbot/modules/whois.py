@@ -45,7 +45,7 @@ async def whois(event):
     f"Username: @{user.username or '—'}\n"
     f"First Name: {user.first_name or '—'}\n"
     f"Last Name: {user.last_name or '—'}\n"
-    f"Phone: {user.phone or 'Hidden'}\n"
+    f"Phone: +{user.phone or 'Hidden'}\n"
     f"Bio: {extra.about or '—'}\n"
     f"Status: {status}\n"
     f"Common Chats: {extra.common_chats_count}\n"
