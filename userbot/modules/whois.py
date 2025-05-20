@@ -32,9 +32,9 @@ async def whois(event):
   downloaded = await Neo.download_profile_photo(user_id, file=pp_path)
   if downloaded:
     mime_type, _ = mimetypes.guess_type(downloaded)
-    is_gif = mime_type == 'image/gif'
+    is_image = mime_type is not None and mime_type.startswith('image/')
   else:
-    is_gif = False
+    is_image = False
   status = 'Unknown'
   if isinstance(user.status, UserStatusOnline):
     status = 'Online'
@@ -45,7 +45,7 @@ async def whois(event):
     f"Username: @{user.username or '—'}\n"
     f"First Name: {user.first_name or '—'}\n"
     f"Last Name: {user.last_name or '—'}\n"
-    f"Phone: +{user.phone or 'Hidden'}\n"
+    f"Phone: {user.phone or 'Hidden'}\n"
     f"Bio: {extra.about or '—'}\n"
     f"Status: {status}\n"
     f"Common Chats: {extra.common_chats_count}\n"
@@ -54,7 +54,7 @@ async def whois(event):
     f"Is Bot: {'Yes' if user.bot else 'No'}\n"
   )
   if downloaded:
-    if is_gif:
+    if not is_image:
       await Neo.send_file(event.chat_id, downloaded, caption=info, force_document=True)
     else:
       await Neo.send_file(event.chat_id, downloaded, caption=info)
